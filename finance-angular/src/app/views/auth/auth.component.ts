@@ -5,9 +5,6 @@ import { Component } from "@angular/core";
     selector: "auth",
     standalone: true,
     imports: [CommonModule],
-    templateUrl: "./auth.component.html",
-    styleUrl: "./auth.component.scss"
+    templateUrl: "./auth.component.html"
 })
-export class AuthComponent {
-
-}
+export class AuthComponent {}
