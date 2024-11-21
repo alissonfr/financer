@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { MatIconModule } from "@angular/material/icon";
 import { FinCheckboxComponent } from "@core/shared/fin-table/components/fin-checkbox/fin-checkbox.component";
 import { TransactionService } from "@services/api/transaction.service";
@@ -32,10 +32,8 @@ export class TransacoesComponent {
     columns: string[] = ["date", "description", "category.name", "account.name"];
     displayColumns: string[] = ["Data", "Descrição", "Categoria", "Conta"];
 
-    constructor(
-        public dateControlService: DateControlService,
-        public transactionService: TransactionService
-    ) {}
+    public dateControlService = inject(DateControlService)
+    public transactionService = inject(TransactionService)
 
     ngOnInit() {
         this.getTransactions();
