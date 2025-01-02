@@ -4,13 +4,14 @@
       [label]="label"
       formControlName="searchControl"
       (focus)="openDropdown()"
+      (blur)="closeDropdown()"
       placeholder="Pesquisar..."
       autocomplete="off"
     />
     <mat-icon class="material-icons-outlined arrow-icon" (click)="openDropdown()">{{ isDropdownOpen ? "keyboard_arrow_up" : "keyboard_arrow_down" }}</mat-icon>
 
     
-    <div *ngIf="isDropdownOpen" class="absolute z-10 w-full border border-hover-dark bg-sidenav dark:bg-sidenav-dark">
+    <div *ngIf="isDropdownOpen" class="absolute z-[9999] w-full border border-hover-dark bg-sidenav dark:bg-sidenav-dark">
       <ul class="max-h-60 overflow-auto">
         @for (item of filteredItems; track $index) {
           <li

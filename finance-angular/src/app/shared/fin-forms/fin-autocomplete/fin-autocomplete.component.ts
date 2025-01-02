@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CommonModule } from "@angular/common";
-import { Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild } from "@angular/core";
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from "@angular/core";
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { MatIconModule } from "@angular/material/icon";
 import { FinInputComponent } from "../fin-input/fin-input.component";
@@ -13,14 +13,6 @@ import { FinInputComponent } from "../fin-input/fin-input.component";
     styleUrl: "./fin-autocomplete.component.scss"
 })
 export class FinAutocompleteComponent {
-    @HostListener("document:click", ["$event"])
-    clickOutside(event: Event) {
-        const target = event.target as HTMLElement;
-        if (!target.closest(".dropdown-container")) {
-            this.closeDropdown();
-        }
-    }
-
     @Input({ required: true }) items: any[] = [];
     @Input({ required: true }) displayProperty: any;
     @Input({ required: true }) formGroup: FormGroup;
@@ -45,6 +37,8 @@ export class FinAutocompleteComponent {
         const propInput = this.formGroup.get(this.controlName);
         
         autocompleteInput?.valueChanges.subscribe(value => {
+            console.log(value)
+            if(!this.isDropdownOpen && value) this.isDropdownOpen = true;
             propInput?.reset();
             this.filterItems(value);
         });
