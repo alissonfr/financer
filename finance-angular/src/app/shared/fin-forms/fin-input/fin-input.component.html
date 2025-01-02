@@ -1,4 +1,4 @@
-<label class="block mb-2 text-sm font-medium text-text dark:text-text-dark" [for]="name" *ngIf="label">{{ label }}</label>
+<label class="block mt-3 mb-2 text-sm font-medium text-text dark:text-text-dark" [for]="name" *ngIf="label">{{ label }}</label>
 
 @if(matDatepicker) {
   <input 
@@ -14,19 +14,6 @@
   (blur)="onBlur()"
 
   [matDatepicker]="matDatepicker"
-  />
-} @else if (isCurrency) {
-  <input 
-  [type]="type" 
-  [id]="name" 
-  [name]="name" 
-  [value]="value" 
-  (input)="onInputChange($event)"
-  [placeholder]="placeholder" 
-  [autocomplete]="autocomplete"
-
-  (focus)="onFocus()"
-  (blur)="onBlur()"
   />
 } @else {
   <input 
@@ -48,5 +35,3 @@
   <span class="text-xs text-error mt-1" *ngIf="control?.errors?.['maxlength']">&#9888; O valor é muito longo.</span>
   <span class="text-xs text-error mt-1" *ngIf="control?.errors?.['minlength']">&#9888; O valor é muito curto.</span>
 </div>
-
-<div class="mb-5" *ngIf="label"> </div>
