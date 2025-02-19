@@ -1,3 +1,5 @@
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
 <div class="flex justify-between items-center" [class.expanded]="expanded">
     @if (data?.id) {
       <h2 class="text-xl font-semibold flex items-center justify-center">
@@ -20,7 +22,7 @@
           <mat-icon class="material-icons-outlined error">show_chart</mat-icon>
           <span>Despesa</span>
       </button>
-      <button mat-menu-item>
+      <button mat-menu-item (click)="changeToCreditCard()">
           <mat-icon class="material-icons-outlined">credit_card</mat-icon>
           <span>Despesa no cartão &nbsp;&nbsp;&nbsp;</span>
       </button>

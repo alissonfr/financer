@@ -25,7 +25,8 @@ export class BankAccountTransactionService {
     }
 
     find(params?: Record<string, string | number | null | undefined>): Observable<BankAccountTransaction[]> {
-        return this.http.get<BankAccountTransaction[]>(this.PATH, { ...params, month: this.dateControlService.monthIndex.value + 1, year: this.dateControlService.year.value });
+        return this.http
+            .get<BankAccountTransaction[]>(this.PATH, { ...params, month: this.dateControlService.monthIndex.value + 1, year: this.dateControlService.year.value })
     }
 
     get(id: number): Observable<BankAccountTransaction> {

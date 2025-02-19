@@ -22,6 +22,7 @@ import { BankAccountTransaction } from "src/app/models/bank-account-transaction"
 import { Category } from "src/app/models/category";
 import { PaymentMethod } from "src/app/models/payment-method";
 import { FinFormsModule } from "../../fin-forms/fin-forms.module";
+import { FinCCTransactionModalComponent } from "../fin-cc-transaction-modal/fin-cc-transaction-modal.component";
 
 export const CreateOperationLabels = new Map<Operation, string>([
     [Operation.INCOME, "Nova receita"],
@@ -162,6 +163,11 @@ export class FinTransactionModalComponent {
         } else {
             status?.patchValue(TransactionStatus.PAID)
         }
+    }
+
+    changeToCreditCard() {
+        this.close();
+        this.modalService.open(FinCCTransactionModalComponent);
     }
 
     private findCategories(operation?: Operation): void {
