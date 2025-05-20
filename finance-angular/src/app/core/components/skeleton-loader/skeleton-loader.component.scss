@@ -1,0 +1,9 @@
+.skeleton {
+    @apply w-full h-5 text-center p-2 rounded bg-gray-700 animate-shimmer;
+    background-size: 200% 100%;
+}
+
+.skeleton.image {
+    @apply w-12 h-12 rounded-full;
+}
+

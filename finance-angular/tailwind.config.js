@@ -41,6 +41,19 @@ module.exports = {
         info: "#6CB3C7",
         success: "#5BC3A2",
       },
+      backgroundImage: {
+        shimmer: 'linear-gradient(90deg, #e2e2e2 25%, #f4f4f4 50%, #e2e2e2 75%)',
+        'shimmer-dark': 'linear-gradient(90deg, #303030 25%, #3c3c3c 50%, #303030 75%)',
+      },
+      animation: {
+        shimmer: 'shimmer 3s infinite',
+      },
+      keyframes: {
+        shimmer: {
+          '0%': { backgroundPosition: '200% 0' },
+          '100%': { backgroundPosition: '-200% 0' },
+        },
+      },
     },
   },
   plugins: [],

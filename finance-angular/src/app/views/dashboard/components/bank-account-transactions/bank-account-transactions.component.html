@@ -10,7 +10,7 @@
 </div>
 
 <div class="fin-table" style="padding: 0;">
-    @if(bankAccountTransactions.length > 0) {
+    @if(bankAccountTransactions.length > 0 || bankAccountTransactionService.isLoading()) {
         <section class="table-section">
             <table>
                 <thead>
@@ -22,7 +22,20 @@
                     <th class="text-center max-2xl:hidden" style="padding-left: 0.5rem; padding-right: 0.5rem;">Recebido/Pago</th>
                     <th></th>
                 </thead>
-                <tbody>
+                @if(bankAccountTransactionService.isLoading()) {
+                    <tbody>
+                        @for (_ of [].constructor(6); track $index) {
+                            <tr>
+                                <th><skeleton-loader [image]="true" /></th>
+                                <th><skeleton-loader /></th>
+                                <th><skeleton-loader /></th>
+                                <th><skeleton-loader /></th>
+                                <th><skeleton-loader /></th>
+                            </tr>
+                        }
+                    </tbody>
+                } @else {
+                    <tbody>
                     @for (transaction of bankAccountTransactions; track transaction.bankAccountTransactionId) {
                         <tr>
                             <td style="padding-top: 0.5rem; padding-bottom: 0.5rem"><fin-category-icon [category]="transaction.category" /></td>
@@ -32,9 +45,13 @@
                             </td>
                             <td [class]="transaction.operation === operations.EXPENSE ? 'expense' : 'income'">
                                 {{ transaction.amount | currency: 'BRL' }}
-                                @if (transaction.recurrency?.installments && transaction.recurrency?.installment) {
+                                
+                                @if (transaction.type === transactionType.RECURRENT) {
+                                    <br> <span class="text-text/60 dark:text-text-dark/60 text-xs">Recorrente</span>
+                                } @else if (transaction.recurrency?.installments && transaction.recurrency?.installment) {
                                     <span class="text-text/60 dark:text-text-dark/60 text-xs">({{ transaction.recurrency?.installment }}/{{ transaction.recurrency?.installments }})</span>
                                 }
+                                
                             </td>
                             <td class="max-2xl:hidden">{{ transaction.bankAccount.name }}</td>
                             <td class="text-center max-2xl:hidden" style="padding-left: 0.5rem; padding-right: 0.5rem;">
@@ -60,10 +77,13 @@
                         </tr>
                       }
                 </tbody>
+            }
             </table>
         </section>
     } @else {
         <h1 class="mt-4">Sem registros.</h1>
     }
+
+
     
 </div>

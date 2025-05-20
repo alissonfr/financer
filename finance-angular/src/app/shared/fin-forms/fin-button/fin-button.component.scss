@@ -1,6 +1,6 @@
 :host {
     button {
-        @apply font-sans text-sm rounded-lg cursor-pointer inline-flex justify-center items-center gap-2 outline-none;
+        @apply font-sans text-sm rounded-lg cursor-pointer outline-none relative;
 
         .mat-icon {
             @apply flex items-center justify-center h-4 w-4 text-[1rem] mt-0.5;

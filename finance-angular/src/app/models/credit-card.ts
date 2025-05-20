@@ -1,3 +1,4 @@
+import { Issuer } from "./issuer.";
 import { User } from "./user";
 
 export class CreditCard {
@@ -7,4 +8,5 @@ export class CreditCard {
     dueDay: string;
     closingDay: string;
     user: User;
+    issuer: Issuer;
 }

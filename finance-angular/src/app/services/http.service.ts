@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { finalize, Observable } from "rxjs";
-import { LoadingService } from "./loading.service";
+import { GlobalLoadingService } from "./loading.service";
 
 type AnyLikeObject = object
 
@@ -10,33 +10,33 @@ type AnyLikeObject = object
 })
 export class HttpService {
     private http = inject(HttpClient);
-    private loadingService = inject(LoadingService);
+    private globalLoadingService = inject(GlobalLoadingService);
 
     get<T>(url: string, params?: AnyLikeObject): Observable<T> {
-        this.loadingService.start();
+        this.globalLoadingService.start();
         return this.http.get<T>(this.getUrlWithParams(url, params),).pipe(
-            finalize(() => this.loadingService.end())
+            finalize(() => this.globalLoadingService.end())
         );
     }
 
     post<T>(url: string, body: AnyLikeObject, params?: AnyLikeObject): Observable<T> {
-        this.loadingService.start();
+        this.globalLoadingService.start();
         return this.http.post<T>(this.getUrlWithParams(url, params), body).pipe(
-            finalize(() => this.loadingService.end())
+            finalize(() => this.globalLoadingService.end())
         );
     }
 
     put<T>(url: string, body: AnyLikeObject, params?: AnyLikeObject): Observable<T> {
-        this.loadingService.start();
+        this.globalLoadingService.start();
         return this.http.put<T>(this.getUrlWithParams(url, params), body).pipe(
-            finalize(() => this.loadingService.end())
+            finalize(() => this.globalLoadingService.end())
         );
     }
 
     delete<T>(url: string, params?: AnyLikeObject): Observable<T> {
-        this.loadingService.start();
+        this.globalLoadingService.start();
         return this.http.delete<T>(this.getUrlWithParams(url, params)).pipe(
-            finalize(() => this.loadingService.end())
+            finalize(() => this.globalLoadingService.end())
         );
     }
 

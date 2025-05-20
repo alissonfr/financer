@@ -1,6 +1,6 @@
 import { inject, Injectable } from "@angular/core";
 import { HttpService } from "@services/http.service";
-import { LoadingService } from "@services/loading.service";
+import { GlobalLoadingService } from "@services/loading.service";
 import { finalize, Observable, tap } from "rxjs";
 import { environment } from "src/app/environment";
 import { User } from "src/app/models/user";
@@ -21,7 +21,7 @@ class RegisterResponse {
 export class AuthService {
     private readonly PATH = `${environment.API_URL}v1/auth`;
     private http = inject(HttpService);
-    private loadingService = inject(LoadingService);
+    private globalLoadingService = inject(GlobalLoadingService);
 
     constructor() {
         setInterval(() => {
@@ -38,14 +38,14 @@ export class AuthService {
     }
 
     login(data: { email: string, password: string }): Observable<LoginResponse> {
-        this.loadingService.start();
+        this.globalLoadingService.start();
         return this.http.post<LoginResponse>(`${this.PATH}/login`, data)
             .pipe(
                 tap((result) => {
                     localStorage.setItem("token", result.token);
                     localStorage.setItem("user", JSON.stringify(result.user));
                 }),
-                finalize(() => this.loadingService.end())
+                finalize(() => this.globalLoadingService.end())
             );
     }
 

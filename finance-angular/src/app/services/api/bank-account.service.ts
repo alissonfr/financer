@@ -20,7 +20,9 @@ export class BankAccountService {
     }
 
     create(bankAccount: Partial<BankAccount>): Observable<BankAccount> {
-        return this.http.post<BankAccount>(this.PATH, bankAccount);
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        const { bankAccountId, ...data } = bankAccount;
+        return this.http.post<BankAccount>(this.PATH, data);
     }
 
     update(id: number, bankAccount: Partial<BankAccount>): Observable<BankAccount> {

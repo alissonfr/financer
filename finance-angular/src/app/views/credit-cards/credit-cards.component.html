@@ -10,6 +10,7 @@
         <section class="table-section">
             <table>
                 <thead>
+                    <th></th>
                     <th>Nome</th>
                     <th>Limite</th>
                     <th>Fechamento da fatura</th>
@@ -19,7 +20,12 @@
                 <tbody>
                     @for (account of creditCards; track account.creditCardId) {
                         <tr>
-                            <td>{{ account.name }}</td>
+                            <td>
+                                <img class="w-8 h-8 rounded-lg" [src]="account.issuer.logoUrl" alt="Logo do banco {{ account.issuer.name }}">
+                            </td>
+                            <td>
+                                {{ account.name }}
+                            </td>
                             <td>{{ account.creditLimit | currency: 'BRL' }}</td>
                             <td>{{ account.closingDay }}</td>
                             <td>{{ account.dueDay }}</td>

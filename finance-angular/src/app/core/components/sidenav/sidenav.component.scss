@@ -2,27 +2,21 @@
     mat-icon {
         @apply w-5 h-5 text-[1.25rem];
     }
+}
 
-    mat-sidenav-container {
-        mat-sidenav {
-            @apply border-0 dark:border-0 bg-sidenav dark:bg-sidenav-dark #{!important};
+mat-sidenav-container {
+    mat-sidenav {
 
-            &.mat-drawer-opened {
-                @apply w-[250px] dark:border-r dark:border-r-gray-950;
-            }
+        &.mat-drawer-opened {
+            @apply w-[250px] dark:border-r dark:border-r-gray-950;
+        }
 
-            mat-nav-list ul li {
-                @apply text-text dark:text-text-dark flex items-center justify-start gap-2 px-2 py-2 mx-3 rounded-lg cursor-pointer text-sm;
+        mat-nav-list ul li {
+            @apply flex items-center justify-start gap-2 px-2 py-2 mx-3 rounded-lg cursor-pointer text-sm;
 
-                &.active, &:hover {
-                    @apply bg-[#00000008] dark:bg-hover-dark;
-                }
-
-                &.active {
-                    @apply font-semibold;
-                }
+            &.active {
+                @apply font-semibold;
             }
         }
     }
-
 }

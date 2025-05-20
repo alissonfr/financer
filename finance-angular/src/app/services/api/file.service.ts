@@ -1,4 +1,5 @@
-import { Injectable } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
+import { CacheService } from "@services/cache.service";
 import { environment } from "src/app/environment";
 
 @Injectable({ 
@@ -6,13 +7,20 @@ import { environment } from "src/app/environment";
 })
 export class FileService {
     private readonly PATH = `${environment.API_URL}v1/files/`;
+    private readonly cacheService = inject(CacheService<string>);
 
     async get(url: string): Promise<string> {
-        const response = await fetch(`${this.PATH}${url}`);
-        if (!response.ok) {
-            throw new Error(`Failed to fetch file: ${response.statusText}`);
+        if(this.cacheService.get(url)) {
+            return this.cacheService.get(url);
+        } else {
+            const response = await fetch(`${this.PATH}${url}`);
+            if (!response.ok) {
+                throw new Error(`Failed to fetch file: ${response.statusText}`);
+            }
+            const blob = await response.blob();
+            const logoUrl: string = URL.createObjectURL(blob);
+            this.cacheService.set(url, logoUrl);
+            return logoUrl
         }
-        const blob = await response.blob();
-        return URL.createObjectURL(blob);
     }
 }

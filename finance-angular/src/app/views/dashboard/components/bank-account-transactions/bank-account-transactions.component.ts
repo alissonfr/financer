@@ -15,16 +15,17 @@ import { BankAccountTransaction } from "src/app/models/bank-account-transaction"
 import { FinFormsModule } from "src/app/shared/fin-forms/fin-forms.module";
 import { FinTransactionModalComponent } from "src/app/shared/fin-ui/fin-transaction-modal/fin-transaction-modal.component";
 import { FinUiModule } from "src/app/shared/fin-ui/fin-ui.module";
+import { SkeletonLoaderComponent } from "../../../../core/components/skeleton-loader/skeleton-loader.component";
 
 @Component({
     selector: "bank-account-transactions",
-    imports: [CommonModule, MatIconModule, FinUiModule, MatMenuModule, FinFormsModule, ReactiveFormsModule],
+    imports: [CommonModule, MatIconModule, FinUiModule, MatMenuModule, FinFormsModule, ReactiveFormsModule, SkeletonLoaderComponent],
     templateUrl: "./bank-account-transactions.component.html"
 })
 export class BankAccountTransactionsComponent {
     bankAccountTransactions: BankAccountTransaction[] = [];
 
-    private readonly bankAccountTransactionService = inject(BankAccountTransactionService);
+    protected readonly bankAccountTransactionService = inject(BankAccountTransactionService);
     private readonly dialog = inject(ModalService);
     private readonly toastService = inject(ToastService);
 
@@ -44,6 +45,10 @@ export class BankAccountTransactionsComponent {
 
     get transactionStatus() {
         return TransactionStatus;
+    }
+
+    get transactionType() {
+        return TransactionType;
     }
 
     ngOnInit() {

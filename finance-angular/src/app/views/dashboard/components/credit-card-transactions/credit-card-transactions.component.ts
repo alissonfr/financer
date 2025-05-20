@@ -13,35 +13,11 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { ModalService } from "@services/modal.service";
 import { CreditCardModalComponent } from "@views/credit-cards/components/credit-card-modal/credit-card-modal.component";
 import { CreditCardTransactionService } from "@services/api/credit-card-transaction.service";
-
-// gradient: string;
-//     icon: string;
-// gradient: "cc-blue",
-//             icon: "credit-card"
-// gradient: "cc-red",
-//             icon: "wallet"
-// gradient: "cc-green",
-//             icon: "credit-card"
-// gradient: "cc-purple",
-//             icon: "wallet"
-// gradient: "cc-yellow",
-//             icon: "credit-card"
-// gradient: "cc-orange",
-//             icon: "wallet"
-// gradient: "cc-gray",
-//             icon: "credit-card"
-// gradient: "cc-blue-dark",
-//             icon: "wallet"
-// gradient: "cc-blue-light",
-//             icon: "credit-card"
-// gradient: "cc-black",
-//             icon: "wallet"
-// gradient: "cc-white",
-//             icon: "credit-card"
+import { SkeletonLoaderComponent } from "../../../../core/components/skeleton-loader/skeleton-loader.component";
 
 @Component({
     selector: "credit-card-transactions",
-    imports: [CommonModule, MatIconModule, FinUiModule, MatMenuModule, FinFormsModule, ChevronComponent, MatTooltipModule],
+    imports: [CommonModule, MatIconModule, FinUiModule, MatMenuModule, FinFormsModule, ChevronComponent, MatTooltipModule, SkeletonLoaderComponent],
     templateUrl: "./credit-card-transactions.component.html"
 })
 export class CreditCardTransactionsComponent {
@@ -49,7 +25,7 @@ export class CreditCardTransactionsComponent {
     currentCardIndex: number = 0;
 
     private readonly toastService = inject(ToastService);
-    private readonly creditCardService = inject(CreditCardService);
+    protected readonly creditCardService = inject(CreditCardService);
     private readonly creditCardTransactionService = inject(CreditCardTransactionService);
     private readonly dialog = inject(ModalService);
 

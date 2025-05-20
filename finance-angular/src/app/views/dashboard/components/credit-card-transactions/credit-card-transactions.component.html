@@ -1,7 +1,6 @@
 <!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 <!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
 
-
 <div class="relative flex justify-center items-center gap-4 mt-8 px-6">
     <chevron direction="left" (click)="previousCard()" />
   
@@ -52,23 +51,39 @@
         <fin-select controlName="sort" [items]="sort" displayProperty="label" [formGroup]="formGroup"  class="w-full" />
     </div>
     </div>
-  
-    @if (creditCards[currentCardIndex] && creditCards[currentCardIndex].transactions?.length) {
-    <div class="divide-y divide-hover-dark">
-        <div *ngFor="let transaction of creditCards[currentCardIndex].transactions" class="px-6 py-3 hover:bg-hover-dark">
-            <div class="flex justify-between">
-              <div class="flex items-center gap-4">
-                <mat-icon class="material-symbols-outlined" [matTooltip]="transaction.category.name">{{ transaction.category.icon }}</mat-icon>
-                <div>
-                  <div class="font-medium">{{ transaction.description }}</div>
-                  <div class="text-sm">{{ transaction.date | date:'dd/MM/yyyy' }}</div>
+
+      @if(creditCardService.isLoading()) {
+          @for (_ of [].constructor(3); track $index) {
+              <div class="px-6 py-3 flex justify-between items-center">
+                <skeleton-loader [image]="true" />
+                <div class="flex w-full justify-between">
+                  <div class="w-[30%] flex flex-col gap-1">
+                    <skeleton-loader class="w-full" />
+                    <skeleton-loader class="w-[50%]" />
+                  </div>
+                  <skeleton-loader class="w-[15%]" />
                 </div>
               </div>
-              <div class="font-medium">{{ transaction.amount | currency: 'BRL' }}</div>
-            </div>
-          </div>
-        </div>
+          }
       } @else {
-        <h3 class="p-6 text-center w-full">Sem registros.</h3>
+        @if (creditCards[currentCardIndex] && creditCards[currentCardIndex].transactions?.length) {
+          <div class="divide-y divide-hover-dark">
+            <div *ngFor="let transaction of creditCards[currentCardIndex].transactions" class="px-6 py-3 hover:bg-hover-dark">
+              <div class="flex justify-between">
+                <div class="flex items-center gap-4">
+                  <mat-icon class="material-symbols-outlined" [matTooltip]="transaction.category.name">{{ transaction.category.icon }}</mat-icon>
+                  <div>
+                    <div class="font-medium">{{ transaction.description }}</div>
+                    <div class="text-sm">{{ transaction.date | date:'dd/MM/yyyy' }}</div>
+                  </div>
+                </div>
+                <div class="font-medium">{{ transaction.amount | currency: 'BRL' }}</div>
+              </div>
+             </div>
+            </div>
+          } @else {
+            <h3 class="p-6 text-center w-full">Sem registros.</h3>
+          }
       }
+  
   </div>

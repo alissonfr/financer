@@ -21,7 +21,7 @@ export class CreditCardModalComponent {
     formGroup = new FormGroup({
         creditCardId: new FormControl(0),
         name: new FormControl("", [Validators.required]),
-        issuer: new FormControl("", [Validators.required]),
+        issuer: new FormControl({}, [Validators.required]),
         creditLimit: new FormControl("", [Validators.required]),
         dueDay: new FormControl("", [Validators.required]),
         closingDay: new FormControl("", [Validators.required]),

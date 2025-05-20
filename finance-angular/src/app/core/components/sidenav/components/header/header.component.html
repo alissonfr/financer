@@ -5,7 +5,9 @@
         <ng-content></ng-content>
     </div>
 
-    <date-view></date-view>
+    @if(showDateView()) {
+        <date-view></date-view>
+    }
 
     <div class="default-text flex items-center justify-end gap-2">
         <div class="cursor-pointer w-9 h-9 rounded-full" [matMenuTriggerFor]="menu">
