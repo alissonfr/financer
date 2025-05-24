@@ -1,31 +1,18 @@
 <div class="relative w-full text-text dark:text-text-dark" [formGroup]="searchFormGroup">
-    <fin-input
-      #finInput
-      [label]="label"
-      formControlName="searchControl"
-      (focus)="openDropdown()"
-      (blur)="closeDropdown()"
-      placeholder="Selecione uma opção..."
-      autocomplete="off"
-      readonly
-    />
-    <mat-icon class="material-icons-outlined arrow-icon" [style]="label ? 'top: 2.25rem' : 'top: 0.75rem'" (click)="openDropdown()">{{ isDropdownOpen ? "arrow_drop_up" : "arrow_drop_down" }}</mat-icon>
+    <fin-input #finInput [label]="label" formControlName="searchControl" (focus)="openDropdown()" (blur)="closeDropdown()" placeholder="Selecione uma opção..." autocomplete="off" readonly />
+    <mat-icon class="material-icons-outlined arrow-icon" [style]="label ? 'top: 2.25rem' : 'top: 0.75rem'" (click)="openDropdown()">{{
+        isDropdownOpen ? "arrow_drop_up" : "arrow_drop_down"
+    }}</mat-icon>
 
-    
     <div *ngIf="isDropdownOpen" class="text-start absolute z-[9999] w-full border border-hover-dark bg-sidenav dark:bg-sidenav-dark">
-      <ul class="max-h-60 overflow-auto">
-        @for (item of items; track $index) {
-          <li
-            (click)="selectItem(item)"
-            class="cursor-pointer px-4 py-2 hover:bg-hover-dark"
-          >
-            {{ item[displayProperty] }}
-          </li>
-        } @empty {
-          <li class="px-4 py-2">Nenhum registro encontrado.</li>
-        }
-      </ul>
+        <ul class="max-h-60 overflow-auto">
+            @for (item of items; track $index) {
+            <li (click)="selectItem(item)" class="cursor-pointer px-4 py-2 hover:bg-hover-dark">
+                {{ item[displayProperty] }}
+            </li>
+            } @empty {
+            <li class="px-4 py-2">Nenhum registro encontrado.</li>
+            }
+        </ul>
     </div>
-    
-  </div>
-  
+</div>

@@ -18,10 +18,10 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
     ]
 })
 export class FinTextAreaComponent implements ControlValueAccessor {
-    @Input() type: string = "text";
-    @Input() name: string = "";
-    @Input() placeholder: string = "";
-    @Input() autocomplete: string = "off";
+    @Input() type = "text";
+    @Input() name = "";
+    @Input() placeholder = "";
+    @Input() autocomplete = "off";
     @Input() initialValue: string;
     @Input() label: string;
     
@@ -29,21 +29,21 @@ export class FinTextAreaComponent implements ControlValueAccessor {
     @Output() blur = new EventEmitter<void>();
     
     protected disabled: boolean;
-    protected value: string = "";
+    protected value = "";
     protected control: FormControl;
   
     onChanged: (value: string) => void;
     onTouched: () => void;
   
-    writeValue(value: string) {
+    writeValue(value: string): void {
         this.value = value ?? "";
     }
   
-    registerOnChange(fn: (value: string) => void) {
+    registerOnChange(fn: (value: string) => void): void {
         this.onChanged = fn;
     }
   
-    registerOnTouched(fn: () => void) {
+    registerOnTouched(fn: () => void): void {
         this.onTouched = fn;
     }
   
@@ -57,11 +57,11 @@ export class FinTextAreaComponent implements ControlValueAccessor {
         this.onChanged(value);
     }
 
-    onFocus() {
+    onFocus(): void {
         this.focus.emit();
     }
 
-    onBlur() {
+    onBlur(): void {
         this.blur.emit();
         if (this.onTouched) {
             this.onTouched();

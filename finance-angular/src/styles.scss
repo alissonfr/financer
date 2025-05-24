@@ -1,18 +1,18 @@
-@use "./theme/reset";
-@use "./theme/material";
-@use "./theme/utilitary-classes";
-@use "./theme/table";
+@use "./styles/reset";
+@use "./styles/material";
+@use "./styles/utilitary-classes";
+@use "./styles/table";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
-html, body { 
-    @apply h-full; 
+html,
+body {
+    @apply h-full;
 }
 
-body { 
+body {
     @apply m-0 font-nunito box-border;
 }
 
@@ -43,7 +43,7 @@ body {
 .checkbox-button {
     @apply relative w-11 h-6 bg-gray-700 rounded-full after:content-[''] 
     after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-600 after:border after:rounded-full after:h-5 after:w-5 after:transition-all 
-    dark:border-gray-600 ;
+    dark:border-gray-600;
 }
 
 .radio-group {

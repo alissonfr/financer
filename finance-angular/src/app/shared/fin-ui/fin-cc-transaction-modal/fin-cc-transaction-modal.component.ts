@@ -29,7 +29,7 @@ import { FinTransactionModalComponent } from "../fin-transaction-modal/fin-trans
     styleUrl: "./fin-cc-transaction-modal.component.scss"
 })
 export class FinCCTransactionModalComponent {
-    expanded: boolean = false;
+    expanded = false;
     operations = Operation;
     types = TransactionType;
     formGroup: FormGroup = new FormGroup({
@@ -54,7 +54,7 @@ export class FinCCTransactionModalComponent {
     private readonly toastService = inject(ToastService);
     private readonly bankAccountTransactionService = inject(CreditCardTransactionService);
     
-    ngOnInit() {
+    ngOnInit(): void {
         this.findCategories();
         this.findCreditCards();
 
@@ -76,39 +76,33 @@ export class FinCCTransactionModalComponent {
         if(transaction.creditCardTransactionId) {
             this.update(transaction.creditCardTransactionId, transaction);
         } else {
-            this.create(transaction)
+            this.create(transaction);
         }
     }
 
-    createNewCreditCard(name: string) {
-        const dialogRef = this.modalService.open(CreditCardModalComponent, { data: { name } });
-        dialogRef.afterClosed().subscribe(() => {
-
-        });
+    createNewCreditCard(name: string): void {
+        this.modalService.open(CreditCardModalComponent, { data: { name } });
     }
 
-    createNewCategory(name: string) {
-        const dialogRef = this.modalService.open(CategoryModalComponent, { data: { name } });
-        dialogRef.afterClosed().subscribe(() => {
-            
-        });
+    createNewCategory(name: string): void {
+        this.modalService.open(CategoryModalComponent, { data: { name } });
     }
 
-    changeToBankAccount(operation: Operation) {
+    changeToBankAccount(operation: Operation): void {
         this,close();
-        const dialogRef = this.modalService.open(FinTransactionModalComponent, { data: { operation } });
-        dialogRef.afterClosed().subscribe(() => {});
+        this.modalService.open(FinTransactionModalComponent, { data: { operation } });
     }
 
-    changeType(event: Event, type: TransactionType) {
-        const checking = (event.target as HTMLInputElement)?.checked
+    changeType(event: Event, type: TransactionType): void {
+        const checking = (event.target as HTMLInputElement)?.checked;
         if(!checking) {
             this.formGroup.removeControl("installments");
-            return this.formGroup.get("type")?.patchValue(TransactionType.SINGLE)
+            this.formGroup.get("type")?.patchValue(TransactionType.SINGLE);
+            return;
         }
 
         if(type === TransactionType.IN_INSTALLMENTS) {
-            this.formGroup.addControl("installments", new FormControl("", Validators.required))
+            this.formGroup.addControl("installments", new FormControl("", Validators.required));
         } else {
             this.formGroup.removeControl("installments");
         }
@@ -116,12 +110,12 @@ export class FinCCTransactionModalComponent {
         this.formGroup.get("type")?.patchValue(type);
     }
 
-    changeStatus() {
+    changeStatus(): void {
         const status = this.formGroup.get("status");
         if(status?.value === TransactionStatus.PAID) {
-            status.patchValue(TransactionStatus.PENDING)
+            status.patchValue(TransactionStatus.PENDING);
         } else {
-            status?.patchValue(TransactionStatus.PAID)
+            status?.patchValue(TransactionStatus.PAID);
         }
     }
 
@@ -139,14 +133,14 @@ export class FinCCTransactionModalComponent {
         });
     }
 
-    private get(id: number) {
+    private get(id: number): void {
         this.bankAccountTransactionService.get(id).subscribe({
             next: (result) => this.formGroup.setValue(result as unknown as never),
             error: e => this.toastService.error(e, "Erro ao obter métodos de pagamento.")
         });
     }
 
-    private create(transaction: CreditCardTransaction) {
+    private create(transaction: CreditCardTransaction): void {
         this.bankAccountTransactionService.create(transaction).subscribe({
             next: () => {
                 this.toastService.success("Transação criada com sucesso.");
@@ -156,7 +150,7 @@ export class FinCCTransactionModalComponent {
         });
     }
 
-    private update(id: number, transaction: CreditCardTransaction) {
+    private update(id: number, transaction: CreditCardTransaction): void {
         this.bankAccountTransactionService.update(id, transaction).subscribe({
             next: () => {
                 this.toastService.success("Transação atualizada com sucesso.");

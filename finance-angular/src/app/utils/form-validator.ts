@@ -1,6 +1,6 @@
 import { FormGroup } from "@angular/forms";
 
-export const isFormInvalid = (formGroup: FormGroup) => {
+export const isFormInvalid = (formGroup: FormGroup): boolean => {
     const controls = formGroup.controls;
     
     for (const key in controls) {
@@ -11,4 +11,4 @@ export const isFormInvalid = (formGroup: FormGroup) => {
     }
     
     return formGroup.invalid;
-}
+};

@@ -1,10 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CommonModule } from "@angular/common";
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from "@angular/core";
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { MatIconModule } from "@angular/material/icon";
 import { first } from "rxjs";
 import { FinInputComponent } from "../fin-input/fin-input.component";
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type SelectItem = any;
 
 @Component({
     selector: "fin-select",
@@ -13,8 +15,8 @@ import { FinInputComponent } from "../fin-input/fin-input.component";
     styleUrl: "./fin-select.component.scss"
 })
 export class FinSelectComponent {
-    @Input({ required: true }) items: any[] = [];
-    @Input({ required: true }) displayProperty: any;
+    @Input({ required: true }) items: SelectItem[] = [];
+    @Input({ required: true }) displayProperty: string;
     @Input({ required: true }) formGroup: FormGroup;
     @Input({ required: true }) controlName: string;
     @Input() label: string;
@@ -24,43 +26,42 @@ export class FinSelectComponent {
     @ViewChild(FinInputComponent) input: FinInputComponent;
     @ViewChild(FinInputComponent, { static: true, read: ElementRef }) inputRef: ElementRef;
 
-    isDropdownOpen: boolean = false;
+    isDropdownOpen = false;
 
     searchFormGroup = new FormGroup({
         searchControl: new FormControl(""),
     });
 
-    ngOnInit() {
+    ngOnInit(): void {
         const propInput = this.formGroup.get(this.controlName);
-        console.log(propInput)
         this.setInitialValue();
         
         if(propInput?.hasValidator(Validators.required)) {
             propInput?.events.subscribe(() => {
                 if(propInput?.invalid && propInput?.touched) {
-                    this.inputRef.nativeElement.classList.add("ng-touched", "ng-invalid")
+                    this.inputRef.nativeElement.classList.add("ng-touched", "ng-invalid");
                 } else {
-                    this.inputRef.nativeElement.classList.remove("ng-touched", "ng-invalid")
+                    this.inputRef.nativeElement.classList.remove("ng-touched", "ng-invalid");
                 }
             });
         }
     }
 
-    setInitialValue() {
+    setInitialValue(): void {
         this.formGroup.get(this.controlName)?.valueChanges.pipe(first()).subscribe(value => this.selectItem(value));
     }
 
-    selectItem(item: any) {
-        this.input.writeValue(item[this.displayProperty])
+    selectItem(item: SelectItem): void {
+        this.input.writeValue(item[this.displayProperty]);
         this.formGroup.get(this.controlName)?.setValue(item);
         this.isDropdownOpen = false;
     }
 
-    openDropdown() {
+    openDropdown(): void {
         this.isDropdownOpen = !this.isDropdownOpen;
     }
 
-    closeDropdown() {
+    closeDropdown(): void {
         this.isDropdownOpen = false;
     }
 

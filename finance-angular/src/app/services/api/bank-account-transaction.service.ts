@@ -1,26 +1,26 @@
 import { inject, Injectable, signal } from "@angular/core";
+import { HttpParams } from "@interfaces/http-params.type";
 import { DateControlService } from "@services/date-control.service";
 import { HttpService } from "@services/http.service";
 import { formatDateHourToNow } from "@utils/parsers";
 import { finalize, Observable, Subject } from "rxjs";
 import { DeleteTransactionOptions } from "src/app/enums/delete-transaction-options.enum";
-import { environment } from "src/app/environment";
 import { BankAccountTransaction } from "src/app/models/bank-account-transaction";
+import { environment } from "src/environments/environment";
 
 @Injectable({ providedIn: "root" })
 export class BankAccountTransactionService {
     private readonly PATH = `${environment.API_URL}v1/bank-account-transactions`;
-    private http = inject(HttpService);
-    private dateControlService = inject(DateControlService);
 
-    private transactionUpdatedSubject = new Subject<void>();
+    private readonly http = inject(HttpService);
+    private readonly dateControlService = inject(DateControlService);
+
+    private readonly transactionUpdatedSubject = new Subject<void>();
     readonly transactionUpdated$ = this.transactionUpdatedSubject.asObservable();
     readonly isLoading = signal<boolean>(false);
 
     constructor() {
-        this.dateControlService.dateChanged.subscribe(() => {
-            this.notifyTransactionUpdated();
-        });
+        this.dateControlService.dateChanged.subscribe(() => this.notifyTransactionUpdated());
     }
 
     private withLoading<T>(obs: Observable<T>): Observable<T> {
@@ -28,26 +28,26 @@ export class BankAccountTransactionService {
         return obs.pipe(finalize(() => this.isLoading.set(false)));
     }
 
+    private withLoadingAndNotify<T>(obs: Observable<T>): Observable<T> {
+        return this.withLoading(obs).pipe(finalize(() => this.notifyTransactionUpdated()));
+    }
+
     private notifyTransactionUpdated(): void {
         this.transactionUpdatedSubject.next();
     }
 
-    find(params?: Record<string, string | number | null | undefined>): Observable<BankAccountTransaction[]> {
+    find(params?: HttpParams): Observable<BankAccountTransaction[]> {
         const query = {
             ...params,
             month: this.dateControlService.monthIndex.value + 1,
             year: this.dateControlService.year.value
         };
 
-        return this.withLoading(
-            this.http.get<BankAccountTransaction[]>(this.PATH, query)
-        );
+        return this.withLoading(this.http.get<BankAccountTransaction[]>(this.PATH, query));
     }
 
     get(id: number): Observable<BankAccountTransaction> {
-        return this.withLoading(
-            this.http.get<BankAccountTransaction>(`${this.PATH}/${id}`)
-        );
+        return this.withLoading(this.http.get<BankAccountTransaction>(`${this.PATH}/${id}`));
     }
 
     create(transaction: Partial<BankAccountTransaction>): Observable<BankAccountTransaction> {
@@ -55,30 +55,18 @@ export class BankAccountTransactionService {
             transaction.date = formatDateHourToNow(transaction.date);
         }
 
-        return this.withLoading(
-            this.http.post<BankAccountTransaction>(this.PATH, transaction)
-                .pipe(finalize(() => this.notifyTransactionUpdated()))
-        );
+        return this.withLoadingAndNotify(this.http.post<BankAccountTransaction>(this.PATH, transaction));
     }
 
     update(id: number, transaction: Partial<BankAccountTransaction>): Observable<BankAccountTransaction> {
-        return this.withLoading(
-            this.http.put<BankAccountTransaction>(`${this.PATH}/${id}`, transaction)
-                .pipe(finalize(() => this.notifyTransactionUpdated()))
-        );
+        return this.withLoadingAndNotify(this.http.put<BankAccountTransaction>(`${this.PATH}/${id}`, transaction));
     }
 
     delete(id: number, option?: DeleteTransactionOptions): Observable<void> {
-        return this.withLoading(
-            this.http.delete<void>(`${this.PATH}/${id}`, { option })
-                .pipe(finalize(() => this.notifyTransactionUpdated()))
-        );
+        return this.withLoadingAndNotify(this.http.delete<void>(`${this.PATH}/${id}`, { option }));
     }
 
     updateStatus(id: number): Observable<BankAccountTransaction> {
-        return this.withLoading(
-            this.http.put<BankAccountTransaction>(`${this.PATH}/${id}/status`, {})
-                .pipe(finalize(() => this.notifyTransactionUpdated()))
-        );
+        return this.withLoadingAndNotify(this.http.put<BankAccountTransaction>(`${this.PATH}/${id}/status`, {}));
     }
 }

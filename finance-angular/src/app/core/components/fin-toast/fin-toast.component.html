@@ -1,10 +1,8 @@
 <div class="fixed top-4 right-4 flex flex-col gap-2 z-[9999] cursor-pointer">
-    <div *ngFor="let toast of toastService.toasts$ | async" [class]="'toast ' + toast.type">
-      <span>{{ toast.message }}</span>
-      <mat-icon
-        class="material-icons-outlined close-btn"
-        (click)="removeToast(toast.id)">
-        ✕
-      </mat-icon>
+    <div *ngFor="let toast of toastService.toasts()" [class]="'toast ' + toast.type">
+        <span>{{ toast.message }}</span>
+        <mat-icon class="material-icons-outlined close-btn" (click)="removeToast(toast.id)">
+            ✕
+        </mat-icon>
     </div>
 </div>

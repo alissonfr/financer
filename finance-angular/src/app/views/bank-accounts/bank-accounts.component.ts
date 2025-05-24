@@ -28,7 +28,7 @@ export class BankAccountComponent {
     private readonly toastService = inject(ToastService);
     private readonly dialog = inject(ModalService);
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.find();
     }
 
@@ -39,18 +39,18 @@ export class BankAccountComponent {
         });
     }
 
-    create() {
+    create(): void {
         const dialogRef = this.dialog.open(BankAccountModalComponent);
         dialogRef.afterClosed().subscribe(() => this.find());
     }
 
-    update(id?: number) {
+    update(id?: number): void {
         const dialogRef = this.dialog.open(BankAccountModalComponent, { data: { id } });
         dialogRef.afterClosed().subscribe(() => this.find());
     }
 
-    delete(account: BankAccount) {
-        const dialogRef = this.dialog.confirm({
+    delete(account: BankAccount): void {
+        const dialogRef = this.dialog.confirmDeletion({
             title: "Apagar conta bancária",
             message: `Você está prestes a apagar a conta bancária "${account.name}". Você tem certeza?`
         });
@@ -58,7 +58,7 @@ export class BankAccountComponent {
             if(result) {
                 this.bankAccountService.delete(account.bankAccountId).subscribe({
                     next: () => {
-                        this.toastService.success("Conta bancária apagada com sucesso.")
+                        this.toastService.success("Conta bancária apagada com sucesso.");
                         this.find();
                     },
                     error: e => this.toastService.error(e, "Erro ao apagar conta bancária.")
@@ -68,7 +68,7 @@ export class BankAccountComponent {
         });
     }
 
-    clear() {
+    clear(): void {
         this.formGroup.reset();
         this.find();
     }

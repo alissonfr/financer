@@ -1,89 +1,84 @@
-<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
-<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
-
 <div class="p-6">
     <h2 class="text-xl font-semibold">Compras recentes</h2>
-    <div class="grid gap-4 mt-4 w-full" style="grid-template-columns: 2fr 1fr;" [formGroup]="formGroup">
+    <div class="grid gap-4 mt-4 w-full" style="grid-template-columns: 2fr 1fr" [formGroup]="formGroup">
         <fin-input name="creditLimit" placeholder="Pesquisar..." required formControlName="search" class="w-full" />
-        <fin-select controlName="sort" [items]="sort" displayProperty="label" [formGroup]="formGroup"  class="w-full" />
+        <fin-select controlName="sort" [items]="sort" displayProperty="label" [formGroup]="formGroup" class="w-full" />
     </div>
 </div>
 
-<div class="fin-table" style="padding: 0;">
+<div class="fin-table" style="padding: 0">
     @if(bankAccountTransactions.length > 0 || bankAccountTransactionService.isLoading()) {
-        <section class="table-section">
-            <table>
-                <thead>
-                    <th></th>
-                    <th>Data</th>
-                    <th>Descrição</th>
-                    <th>Valor</th>
-                    <th class="max-2xl:hidden">Conta</th>
-                    <th class="text-center max-2xl:hidden" style="padding-left: 0.5rem; padding-right: 0.5rem;">Recebido/Pago</th>
-                    <th></th>
-                </thead>
-                @if(bankAccountTransactionService.isLoading()) {
-                    <tbody>
-                        @for (_ of [].constructor(6); track $index) {
-                            <tr>
-                                <th><skeleton-loader [image]="true" /></th>
-                                <th><skeleton-loader /></th>
-                                <th><skeleton-loader /></th>
-                                <th><skeleton-loader /></th>
-                                <th><skeleton-loader /></th>
-                            </tr>
+    <section class="table-section">
+        <table>
+            <thead>
+                <th></th>
+                <th>Data</th>
+                <th>Descrição</th>
+                <th>Valor</th>
+                <th class="max-2xl:hidden">Conta</th>
+                <th class="text-center max-2xl:hidden" style="padding-left: 0.5rem; padding-right: 0.5rem">Recebido/Pago</th>
+                <th></th>
+            </thead>
+            @if(bankAccountTransactionService.isLoading()) {
+            <tbody>
+                @for (_ of [].constructor(6); track $index) {
+                <tr>
+                    <th><skeleton-loader [image]="true" /></th>
+                    <th><skeleton-loader /></th>
+                    <th><skeleton-loader /></th>
+                    <th><skeleton-loader /></th>
+                    <th><skeleton-loader /></th>
+                </tr>
+                }
+            </tbody>
+            } @else {
+            <tbody>
+                @for (transaction of bankAccountTransactions; track transaction.bankAccountTransactionId) {
+                <tr>
+                    <td style="padding-top: 0.5rem; padding-bottom: 0.5rem"><fin-category-icon [category]="transaction.category" /></td>
+                    <td>{{ transaction.date | date : "dd/MM/yyyy" }}</td>
+                    <td>
+                        {{ transaction.description }}
+                    </td>
+                    <td [class]="transaction.operation === operations.EXPENSE ? 'expense' : 'income'">
+                        {{ transaction.amount | currency : "BRL" }}
+
+                        @if (transaction.type === transactionType.RECURRENT) {
+                        <br />
+                        <span class="text-text/60 dark:text-text-dark/60 text-xs">Recorrente</span>
+                        } @else if (transaction.recurrency?.installments && transaction.recurrency?.installment) {
+                        <span class="text-text/60 dark:text-text-dark/60 text-xs">({{ transaction.recurrency?.installment }}/{{ transaction.recurrency?.installments }})</span>
                         }
-                    </tbody>
-                } @else {
-                    <tbody>
-                    @for (transaction of bankAccountTransactions; track transaction.bankAccountTransactionId) {
-                        <tr>
-                            <td style="padding-top: 0.5rem; padding-bottom: 0.5rem"><fin-category-icon [category]="transaction.category" /></td>
-                            <td>{{ transaction.date | date:'dd/MM/yyyy' }}</td>
-                            <td>
-                                {{ transaction.description }}
-                            </td>
-                            <td [class]="transaction.operation === operations.EXPENSE ? 'expense' : 'income'">
-                                {{ transaction.amount | currency: 'BRL' }}
-                                
-                                @if (transaction.type === transactionType.RECURRENT) {
-                                    <br> <span class="text-text/60 dark:text-text-dark/60 text-xs">Recorrente</span>
-                                } @else if (transaction.recurrency?.installments && transaction.recurrency?.installment) {
-                                    <span class="text-text/60 dark:text-text-dark/60 text-xs">({{ transaction.recurrency?.installment }}/{{ transaction.recurrency?.installments }})</span>
-                                }
-                                
-                            </td>
-                            <td class="max-2xl:hidden">{{ transaction.bankAccount.name }}</td>
-                            <td class="text-center max-2xl:hidden" style="padding-left: 0.5rem; padding-right: 0.5rem;">
-                                <label class="checkbox" style="width: fit-content;">
-                                    <input type="checkbox" [checked]="transaction.status === transactionStatus.PAID" class="sr-only peer">
-                                    <div 
-                                    (click)="changeStatus(transaction.bankAccountTransactionId)"
-                                    class="checkbox-button peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white peer-checked:bg-primary"></div>
-                                  </label>
-                            </td>
-        
-                            <td class="more"><mat-icon [matMenuTriggerFor]="menu" class="material-symbols-outlined">more_vert</mat-icon></td>
-                            <mat-menu #menu="matMenu">
-                                <button (click)="update(transaction)" mat-menu-item>
-                                    <mat-icon class="material-symbols-outlined">edit</mat-icon>
-                                    <span>Editar</span>
-                                </button>
-                                <button (click)="delete(transaction)" mat-menu-item>
-                                    <mat-icon class="material-symbols-outlined">delete</mat-icon>
-                                    <span>Apagar</span>
-                                </button>
-                            </mat-menu>
-                        </tr>
-                      }
-                </tbody>
+                    </td>
+                    <td class="max-2xl:hidden">{{ transaction.bankAccount.name }}</td>
+                    <td class="text-center max-2xl:hidden" style="padding-left: 0.5rem; padding-right: 0.5rem">
+                        <label class="checkbox" style="width: fit-content">
+                            <input type="checkbox" [checked]="transaction.status === transactionStatus.PAID" class="sr-only peer" />
+                            <div
+                                (click)="changeStatus(transaction.bankAccountTransactionId)"
+                                class="checkbox-button peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white peer-checked:bg-primary"
+                            ></div>
+                        </label>
+                    </td>
+
+                    <td class="more"><mat-icon [matMenuTriggerFor]="menu" class="material-symbols-outlined">more_vert</mat-icon></td>
+                    <mat-menu #menu="matMenu">
+                        <button (click)="update(transaction)" mat-menu-item>
+                            <mat-icon class="material-symbols-outlined">edit</mat-icon>
+                            <span>Editar</span>
+                        </button>
+                        <button (click)="delete(transaction)" mat-menu-item>
+                            <mat-icon class="material-symbols-outlined">delete</mat-icon>
+                            <span>Apagar</span>
+                        </button>
+                    </mat-menu>
+                </tr>
+                }
+            </tbody>
             }
-            </table>
-        </section>
+        </table>
+    </section>
     } @else {
-        <h1 class="mt-4">Sem registros.</h1>
+    <h1 class="mt-4">Sem registros.</h1>
     }
-
-
-    
 </div>

@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { finalize, Observable } from "rxjs";
-import { GlobalLoadingService } from "./loading.service";
+import { GlobalLoadingService } from "./global-loading.service";
 
 type AnyLikeObject = object
 
@@ -40,7 +40,7 @@ export class HttpService {
         );
     }
 
-    private getUrlWithParams(url: string, params?: AnyLikeObject) {
+    private getUrlWithParams(url: string, params?: AnyLikeObject): string {
         if(!params) return url;
 
         const paramsString = Object.entries(params).reduce((acc, [key, value]) => {
@@ -49,8 +49,8 @@ export class HttpService {
                 acc = acc + `&${key}=${value}`;
             }
             return acc;
-        }, "")
+        }, "");
 
-        return `${url}${paramsString}`
+        return `${url}${paramsString}`;
     }
 }

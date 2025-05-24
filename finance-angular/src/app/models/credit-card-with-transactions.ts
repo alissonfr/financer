@@ -1,5 +1,5 @@
 import { CreditCardTransaction } from "./credit-card-transaction";
-import { Issuer } from "./issuer.";
+import { Issuer } from "./issuer";
 import { User } from "./user";
 
 export class CreditCardWithTransactions {

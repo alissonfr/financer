@@ -1,11 +1,11 @@
-import { Component, inject, signal } from "@angular/core";
-import { Router, NavigationEnd } from "@angular/router";
-import { filter } from "rxjs/operators";
-import { AuthService } from "@services/api/auth.service";
-import { ThemeSwitcher } from "@utils/theme-switcher";
 import { CommonModule } from "@angular/common";
+import { Component, inject, signal } from "@angular/core";
 import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
+import { NavigationEnd, Router } from "@angular/router";
+import { AuthService } from "@services/api/auth.service";
+import { ThemeSwitcher } from "@utils/theme-switcher";
+import { filter } from "rxjs/operators";
 import { DateViewComponent } from "./components/date-view/date-view.component";
 
 @Component({
@@ -29,12 +29,12 @@ export class HeaderComponent {
                 this.showDateView.set(this.allowedRoutes.some(route => event.urlAfterRedirects === route)));
     }
 
-    public change() {
+    change(): void {
         const currentTheme = this.themeSwitcher.theme();
         this.themeSwitcher.changeTo(currentTheme === "light" ? "dark" : "light");
     }
 
-    logout() {
+    logout(): void {
         this.authService.logout();
         this.router.navigate(["/auth/login"]);
     }

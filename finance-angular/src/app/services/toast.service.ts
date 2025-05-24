@@ -1,15 +1,10 @@
 // toast.service.ts
 import { HttpErrorResponse } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
+import { Injectable, signal } from "@angular/core";
+import { ToastStatus } from "@interfaces/toast-status.type";
+import { Toast } from "../dtos/toast.dto";
 
-type ToastType = "success" | "error" | "info" | "warning";
 
-export interface Toast {
-    id: string;
-    message: string;
-    type?: ToastType;
-}
 
 const INVALID_FORM_MSG = "Preencha todos os campos corretamente.";
 
@@ -17,42 +12,36 @@ const INVALID_FORM_MSG = "Preencha todos os campos corretamente.";
     providedIn: "root",
 })
 export class ToastService {
-    private toastsSubject = new BehaviorSubject<Toast[]>([]);
-    toasts$ = this.toastsSubject.asObservable();
+    readonly toasts = signal<Toast[]>([]);
 
-    invalidForm(duration: number = 3000) {
+    invalidForm(duration: number = 3000): void {
         this.warning(INVALID_FORM_MSG, duration);
     }
 
-    success(message: string, duration: number = 3000) {
+    success(message: string, duration: number = 3000): void {
         this.addToast("success", message, duration);
     }
 
-    error(e: HttpErrorResponse, message: string, duration: number = 3000) {
+    error(e: HttpErrorResponse, message: string, duration: number = 3000): void {
         this.addToast("error", e?.error?.message?.message || message, duration);
     }
 
-    info(message: string, duration: number = 3000) {
+    info(message: string, duration: number = 3000): void {
         this.addToast("info", message, duration);
     }
 
-    warning(message: string, duration: number = 3000) {
+    warning(message: string, duration: number = 3000): void {
         this.addToast("warning", message, duration);
     }
 
-    removeToast(id: string) {
-        const updatedToasts = this.toastsSubject
-            .getValue()
-            .filter(toast => toast.id !== id);
-        this.toastsSubject.next(updatedToasts);
+    removeToast(id: string): void {
+        this.toasts.update(toasts => toasts.filter(toast => toast.id !== id));
     }
 
-    private addToast(type: ToastType, message: string, duration: number) {
+    private addToast(type: ToastStatus, message: string, duration: number): void {
         const id = crypto.randomUUID();
         const newToast: Toast = { id, message, type };
-        const currentToasts = this.toastsSubject.getValue();
-        this.toastsSubject.next([...currentToasts, newToast]);
-
+        this.toasts.update(toasts => [...toasts, newToast]);
         setTimeout(() => this.removeToast(id), duration);
     }
 }

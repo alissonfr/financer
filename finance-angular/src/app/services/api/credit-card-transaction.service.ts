@@ -1,11 +1,12 @@
 import { inject, Injectable } from "@angular/core";
+import { HttpParams } from "@interfaces/http-params.type";
 import { DateControlService } from "@services/date-control.service";
 import { HttpService } from "@services/http.service";
 import { formatDateHourToNow } from "@utils/parsers";
 import { finalize, Observable, Subject } from "rxjs";
 import { DeleteTransactionOptions } from "src/app/enums/delete-transaction-options.enum";
-import { environment } from "src/app/environment";
 import { CreditCardTransaction } from "src/app/models/credit-card-transaction";
+import { environment } from "src/environments/environment";
 
 @Injectable({ 
     providedIn: "root" 
@@ -24,9 +25,9 @@ export class CreditCardTransactionService {
         });
     }
 
-    find(params?: Record<string, string | number | null | undefined>): Observable<CreditCardTransaction[]> {
+    find(params?: HttpParams): Observable<CreditCardTransaction[]> {
         return this.http
-            .get<CreditCardTransaction[]>(this.PATH, { ...params, month: this.dateControlService.monthIndex.value + 1, year: this.dateControlService.year.value })
+            .get<CreditCardTransaction[]>(this.PATH, { ...params, month: this.dateControlService.monthIndex.value + 1, year: this.dateControlService.year.value });
     }
 
     get(id: number): Observable<CreditCardTransaction> {

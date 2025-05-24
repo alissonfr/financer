@@ -28,7 +28,7 @@ export class BankAccountComponent {
 
     operations: {name: string, label: string}[] = Array.from(OperationLabels, ([name, label]) => ({ name, label }));
 
-    get operationsLabels() {
+    get operationsLabels(): typeof OperationLabels {
         return OperationLabels;
     }
 
@@ -36,7 +36,7 @@ export class BankAccountComponent {
     private readonly toastService = inject(ToastService);
     private readonly dialog = inject(ModalService);
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.find();
     }
 
@@ -47,18 +47,18 @@ export class BankAccountComponent {
         });
     }
 
-    create() {
+    create(): void {
         const dialogRef = this.dialog.open(CategoryModalComponent);
         dialogRef.afterClosed().subscribe(() => this.find());
     }
 
-    update(id?: number) {
+    update(id?: number): void {
         const dialogRef = this.dialog.open(CategoryModalComponent, { data: { id } });
         dialogRef.afterClosed().subscribe(() => this.find());
     }
 
-    delete(category: Category) {
-        const dialogRef = this.dialog.confirm({
+    delete(category: Category): void {
+        const dialogRef = this.dialog.confirmDeletion({
             title: "Apagar categoria",
             message: `Você está prestes a apagar a categoria "${category.name}". Você tem certeza?`
         });
@@ -66,7 +66,7 @@ export class BankAccountComponent {
             if(result) {
                 this.categoryService.delete(category.categoryId).subscribe({
                     next: () => {
-                        this.toastService.success("Conta bancária apagada com sucesso.")
+                        this.toastService.success("Conta bancária apagada com sucesso.");
                         this.find();
                     },
                     error: e => this.toastService.error(e, "Erro ao apagar conta bancária.")
@@ -76,7 +76,7 @@ export class BankAccountComponent {
         });
     }
 
-    clear() {
+    clear(): void {
         this.formGroup.reset();
         this.find();
     }

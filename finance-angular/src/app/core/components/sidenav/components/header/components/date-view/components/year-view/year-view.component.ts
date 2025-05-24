@@ -12,21 +12,21 @@ import { ChevronComponent } from "../chevron/chevron.component";
     styleUrl: "./year-view.component.scss"
 }) 
 export class YearViewComponent {
-    readonly dateControl = inject(DateControlService)
+    readonly dateControl = inject(DateControlService);
     readonly months: string[] = MONTHS;
-    showNextYear: boolean = true;
+    showNextYear = true;
     currentMonth = new Date().getMonth() + 1;
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.verifyYear();
     }
 
-    verifyYear() {
+    verifyYear(): void {
         this.dateControl.year.subscribe(year => {
             const currentYear = new Date().getFullYear();
             const maxYear = currentYear + MAXIMUM_YEAR;
-            this.showNextYear = year < maxYear
-        })
+            this.showNextYear = year < maxYear;
+        });
     }
 
 }

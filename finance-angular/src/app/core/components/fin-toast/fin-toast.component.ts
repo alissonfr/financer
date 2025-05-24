@@ -10,9 +10,9 @@ import { ToastService } from "@services/toast.service";
     styleUrl: "./fin-toast.component.scss"
 })
 export class FinToastComponent {
-    toastService = inject(ToastService);
+    readonly toastService = inject(ToastService);
   
-    removeToast(id: string) {
+    removeToast(id: string): void {
         this.toastService.removeToast(id);
     }
 }

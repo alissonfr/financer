@@ -11,8 +11,9 @@ import { FinFormsModule } from "src/app/shared/fin-forms/fin-forms.module";
     styleUrl: "./fin-delete-modal.component.scss"
 })
 export class FinDeleteModalComponent {
+    readonly data = inject(MAT_DIALOG_DATA);
+    
     private readonly dialog = inject(MatDialogRef<FinDeleteModalComponent>);
-    protected readonly data = inject(MAT_DIALOG_DATA);
 
     close(): void {
         this.dialog.close(false);

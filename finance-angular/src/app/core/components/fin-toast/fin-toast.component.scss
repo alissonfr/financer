@@ -1,5 +1,4 @@
 :host {
-
     .toast {
         @apply relative flex items-center gap-4 p-4 pr-12 rounded-lg shadow-lg transition-transform transform bg-white text-white;
         animation: fadeIn 0.5s;

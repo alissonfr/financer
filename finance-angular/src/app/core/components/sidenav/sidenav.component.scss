@@ -6,7 +6,6 @@
 
 mat-sidenav-container {
     mat-sidenav {
-
         &.mat-drawer-opened {
             @apply w-[250px] dark:border-r dark:border-r-gray-950;
         }

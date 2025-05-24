@@ -11,6 +11,6 @@ export const MONTHS: string[] = [
     "Outubro",
     "Novembro",
     "Dezembro"
-]
+] as const;
 
-export const MAXIMUM_YEAR = 40;
+export const MAXIMUM_YEAR = 40 as const;

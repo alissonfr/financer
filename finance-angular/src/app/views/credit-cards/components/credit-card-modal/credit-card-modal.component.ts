@@ -8,14 +8,13 @@ import { IssuerService } from "@services/api/issuer.service";
 import { ToastService } from "@services/toast.service";
 import { isFormInvalid } from "@utils/form-validator";
 import { CreditCard } from "src/app/models/credit-card";
-import { Issuer } from "src/app/models/issuer.";
+import { Issuer } from "src/app/models/issuer";
 import { FinFormsModule } from "src/app/shared/fin-forms/fin-forms.module";
 
 @Component({
     selector: "credit-card-modal",
     imports: [CommonModule, ReactiveFormsModule, FinFormsModule],
     templateUrl: "./credit-card-modal.component.html",
-    styleUrl: "./credit-card-modal.component.scss"
 })
 export class CreditCardModalComponent {
     formGroup = new FormGroup({
@@ -29,23 +28,23 @@ export class CreditCardModalComponent {
 
     issuers: Issuer[] = [];
     
-    private readonly creditCardService = inject(CreditCardService)
-    private readonly issuerService = inject(IssuerService)
+    private readonly creditCardService = inject(CreditCardService);
+    private readonly issuerService = inject(IssuerService);
     private readonly toastService = inject(ToastService);
     private readonly dialog = inject(MatDialogRef<CreditCardModalComponent>);
     private readonly data = inject(MAT_DIALOG_DATA);
 
-    ngOnInit() {
+    ngOnInit(): void {
         if(this.data?.id) this.get(this.data.id);
         if(this.data?.name) this.formGroup.get("name")?.patchValue(this.data.name);
         this.findIssuers();
     }
 
-    async findIssuers() {
+    async findIssuers(): Promise<void> {
         try {
             this.issuers = await this.issuerService.find();
         } catch (e) {
-            console.error(e)
+            console.error(e);
             this.toastService.error(e as unknown as HttpErrorResponse, "Erro ao obter bancos.");
         }
     }
@@ -65,7 +64,7 @@ export class CreditCardModalComponent {
         if(creditCard.creditCardId) {
             this.update(creditCard.creditCardId, creditCard);
         } else {
-            this.create(creditCard)
+            this.create(creditCard);
         }
     }
 
@@ -76,7 +75,7 @@ export class CreditCardModalComponent {
         });
     }
 
-    private create(creditCard: CreditCard) {
+    private create(creditCard: CreditCard): void {
         this.creditCardService.create(creditCard).subscribe({
             next: () => {
                 this.toastService.success("Cartão de crédito criada com sucesso.");
@@ -86,7 +85,7 @@ export class CreditCardModalComponent {
         });
     }
 
-    private update(id: number, creditCard: CreditCard) {
+    private update(id: number, creditCard: CreditCard): void {
         this.creditCardService.update(id, creditCard).subscribe({
             next: () => {
                 this.toastService.success("Cartão de crédito atualizado com sucesso.");

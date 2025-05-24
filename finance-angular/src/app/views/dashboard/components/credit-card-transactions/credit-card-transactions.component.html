@@ -3,87 +3,78 @@
 
 <div class="relative flex justify-center items-center gap-4 mt-8 px-6">
     <chevron direction="left" (click)="previousCard()" />
-  
+
     <div class="relative w-full max-w-sm h-56 max-2xl:h-48 max-xl:h-40">
-      @for (card of creditCards; track $index) {
-        <div class="absolute w-full h-full transition-all duration-500"
-           [ngClass]="{ 'opacity-100 z-10': $index === currentCardIndex, 'opacity-0 z-0': $index !== currentCardIndex }">
-           @if ($index === creditCards.length - 1) {
-            <div class="h-full w-full rounded-2xl flex flex-col justify-center items-center p-8 shadow-xl border-2 border-dashed cursor-pointer transition-all
-              border-text dark:border-text-dark hover:border-primary dark:hover:border-primary hover:text-primary hover:brightness-125"
-                (click)="create()">
-              <mat-icon style="width: 48px; height: 48px; font-size: 48px;">add</mat-icon>
+        @for (card of creditCards; track $index) {
+        <div class="absolute w-full h-full transition-all duration-500" [ngClass]="{ 'opacity-100 z-10': $index === currentCardIndex, 'opacity-0 z-0': $index !== currentCardIndex }">
+            @if ($index === creditCards.length - 1) {
+            <div
+                class="h-full w-full rounded-2xl flex flex-col justify-center items-center p-8 shadow-xl border-2 border-dashed cursor-pointer transition-all border-text dark:border-text-dark hover:border-primary dark:hover:border-primary hover:text-primary hover:brightness-125"
+                (click)="create()"
+            >
+                <mat-icon style="width: 48px; height: 48px; font-size: 48px">add</mat-icon>
             </div>
-           } @else {
-             <div class="h-full w-full rounded-2xl flex flex-col justify-between p-8 shadow-xl text-white"
-                 [class]="card.issuer?.color || ''">
-               <div class="flex justify-between">
-                 <mat-icon>credit_card</mat-icon>
-                 <span class="font-semibold">{{ card.name }}</span>
-               </div>
-               <div class="mt-8 space-y-2">
-                 <div class="text-2xl max-2xl:text-xl max-xl:text-base tracking-wider ">•••• •••• •••• ••••</div>
-               </div>
-             </div>
-           }
-
+            } @else {
+            <div class="h-full w-full rounded-2xl flex flex-col justify-between p-8 shadow-xl text-white" [class]="card.issuer?.color || ''">
+                <div class="flex justify-between">
+                    <mat-icon>credit_card</mat-icon>
+                    <span class="font-semibold">{{ card.name }}</span>
+                </div>
+                <div class="mt-8 space-y-2">
+                    <div class="text-2xl max-2xl:text-xl max-xl:text-base tracking-wider">•••• •••• •••• ••••</div>
+                </div>
+            </div>
+            }
         </div>
-      }
-    </div>
-  
-    <chevron direction="right" (click)="nextCard()" />
-  </div>
-  <div class="w-full text-center flex items-center justify-center mt-3 gap-1">
-    @for (card of creditCards; track $index) {
-      @if ($index === currentCardIndex) {
-        <div class="rounded-full bg-text dark:bg-text-dark w-2.5 h-2.5 border border-text dark:border-text-dark"></div>
-      } @else {
-        <div class="rounded-full w-2.5 h-2.5 border border-text dark:border-text-dark cursor-pointer" (click)="changeCard($index)"></div>
-      }
-    }
-  </div>
-  <div class="rounded-lg shadow-sm">
-    <div class="p-6 border-b border-hover">
-      <h2 class="text-xl font-semibold">Transacões recentes</h2>
-  
-      <div class="grid gap-4 mt-4 w-full" style="grid-template-columns: 2fr 1fr;">
-        <fin-input name="creditLimit" placeholder="Pesquisar..." required formControlName="creditLimit" class="w-full" />
-        <fin-select controlName="sort" [items]="sort" displayProperty="label" [formGroup]="formGroup"  class="w-full" />
-    </div>
+        }
     </div>
 
-      @if(creditCardService.isLoading()) {
-          @for (_ of [].constructor(3); track $index) {
-              <div class="px-6 py-3 flex justify-between items-center">
-                <skeleton-loader [image]="true" />
-                <div class="flex w-full justify-between">
-                  <div class="w-[30%] flex flex-col gap-1">
-                    <skeleton-loader class="w-full" />
-                    <skeleton-loader class="w-[50%]" />
-                  </div>
-                  <skeleton-loader class="w-[15%]" />
-                </div>
-              </div>
-          }
-      } @else {
-        @if (creditCards[currentCardIndex] && creditCards[currentCardIndex].transactions?.length) {
-          <div class="divide-y divide-hover-dark">
-            <div *ngFor="let transaction of creditCards[currentCardIndex].transactions" class="px-6 py-3 hover:bg-hover-dark">
-              <div class="flex justify-between">
-                <div class="flex items-center gap-4">
-                  <mat-icon class="material-symbols-outlined" [matTooltip]="transaction.category.name">{{ transaction.category.icon }}</mat-icon>
-                  <div>
-                    <div class="font-medium">{{ transaction.description }}</div>
-                    <div class="text-sm">{{ transaction.date | date:'dd/MM/yyyy' }}</div>
-                  </div>
-                </div>
-                <div class="font-medium">{{ transaction.amount | currency: 'BRL' }}</div>
-              </div>
-             </div>
+    <chevron direction="right" (click)="nextCard()" />
+</div>
+<div class="w-full text-center flex items-center justify-center mt-3 gap-1">
+    @for (card of creditCards; track $index) { @if ($index === currentCardIndex) {
+    <div class="rounded-full bg-text dark:bg-text-dark w-2.5 h-2.5 border border-text dark:border-text-dark"></div>
+    } @else {
+    <div class="rounded-full w-2.5 h-2.5 border border-text dark:border-text-dark cursor-pointer" (click)="changeCard($index)"></div>
+    } }
+</div>
+<div class="rounded-lg shadow-sm">
+    <div class="p-6 border-b border-hover">
+        <h2 class="text-xl font-semibold">Transacões recentes</h2>
+
+        <div class="grid gap-4 mt-4 w-full" style="grid-template-columns: 2fr 1fr">
+            <fin-input name="creditLimit" placeholder="Pesquisar..." required formControlName="creditLimit" class="w-full" />
+            <fin-select controlName="sort" [items]="sort" displayProperty="label" [formGroup]="formGroup" class="w-full" />
+        </div>
+    </div>
+
+    @if(creditCardService.isLoading()) { @for (_ of [].constructor(3); track $index) {
+    <div class="px-6 py-3 flex justify-between items-center">
+        <skeleton-loader [image]="true" />
+        <div class="flex w-full justify-between">
+            <div class="w-[30%] flex flex-col gap-1">
+                <skeleton-loader class="w-full" />
+                <skeleton-loader class="w-[50%]" />
             </div>
-          } @else {
-            <h3 class="p-6 text-center w-full">Sem registros.</h3>
-          }
-      }
-  
-  </div>
+            <skeleton-loader class="w-[15%]" />
+        </div>
+    </div>
+    } } @else { @if (creditCards[currentCardIndex] && creditCards[currentCardIndex].transactions?.length) {
+    <div class="divide-y divide-hover-dark">
+        <div *ngFor="let transaction of creditCards[currentCardIndex].transactions" class="px-6 py-3 hover:bg-hover-dark">
+            <div class="flex justify-between">
+                <div class="flex items-center gap-4">
+                    <mat-icon class="material-symbols-outlined" [matTooltip]="transaction.category.name">{{ transaction.category.icon }}</mat-icon>
+                    <div>
+                        <div class="font-medium">{{ transaction.description }}</div>
+                        <div class="text-sm">{{ transaction.date | date : "dd/MM/yyyy" }}</div>
+                    </div>
+                </div>
+                <div class="font-medium">{{ transaction.amount | currency : "BRL" }}</div>
+            </div>
+        </div>
+    </div>
+    } @else {
+    <h3 class="p-6 text-center w-full">Sem registros.</h3>
+    } }
+</div>

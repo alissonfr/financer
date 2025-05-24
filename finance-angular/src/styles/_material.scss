@@ -29,7 +29,7 @@ $finance-angular-theme: mat.m2-define-light-theme((
 
   .mat-mdc-menu-item {
     @apply text-text dark:text-text-dark hover:dark:bg-hover-dark;
-  }
+}
 
   .mat-icon {
     @apply text-text dark:text-text-dark;
@@ -37,7 +37,7 @@ $finance-angular-theme: mat.m2-define-light-theme((
     width: 20px !important;
     height: 20px !important;
     margin-right: 8px !important;
-  }
+}
 }
 
 .mat-dialog-container {
@@ -63,9 +63,9 @@ $finance-angular-theme: mat.m2-define-light-theme((
 .mat-mdc-menu-item .mat-icon {
   &.success {
     @apply text-success;
-  }
+}
 
   &.error {
-      @apply text-error scale-x-[-1];
-  }
+    @apply text-error scale-x-[-1];
+}
 }

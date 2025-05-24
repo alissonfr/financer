@@ -13,7 +13,7 @@ const components = [
     FinButtonComponent,
     FinTextAreaComponent,
     FinSelectComponent
-]
+];
 
 @NgModule({
     declarations: [],

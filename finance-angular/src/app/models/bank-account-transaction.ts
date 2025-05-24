@@ -21,5 +21,5 @@ export class BankAccountTransaction {
         installment?: number
         installments?: number
         total?: number
-    }
+    };
 }

@@ -1,17 +1,34 @@
 {
     "editor.tabSize": 4,
-    "diffEditor.wordWrap": "on",
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": "explicit",
-        "source.organizeImports": "explicit"
-    },
-    "editor.quickSuggestions": {
-        "strings": true
-    },
+    "editor.formatOnSave": true,
     "editor.rulers": [
         100,
         120
     ],
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "always",
+        "source.organizeImports": "always"
+    },
+    "editor.quickSuggestions": {
+        "strings": true
+    },
+    "diffEditor.wordWrap": "on",
+    "eslint.validate": [
+        "typescript",
+        "typescriptreact",
+        "html"
+    ],
+    "eslint.format.enable": true,
     "css.customData": [".vscode/tailwind.json"],
-    "scss.lint.unknownAtRules": "ignore"
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[scss]": {
+        "editor.tabSize": 4,
+        "editor.insertSpaces": true,
+        "editor.detectIndentation": false
+    },
+    "prettier.tabWidth": 4,
+    "scss.validate": false,
+    "scss.lint.unknownAtRules": "ignore",
 }

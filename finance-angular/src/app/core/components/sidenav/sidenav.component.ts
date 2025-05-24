@@ -8,13 +8,13 @@ import { MatSidenav, MatSidenavModule } from "@angular/material/sidenav";
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from "@angular/router";
 import { ModalService } from "@services/modal.service";
 import { ThemeSwitcher } from "@utils/theme-switcher";
+import { SidenavItems } from "src/app/constants/sidenav-items";
+import { SidenavItem } from "src/app/dtos/sidenav-item.dto";
 import { Operation } from "src/app/enums/operation.enum";
 import { FinFormsModule } from "src/app/shared/fin-forms/fin-forms.module";
+import { FinCCTransactionModalComponent } from "src/app/shared/fin-ui/fin-cc-transaction-modal/fin-cc-transaction-modal.component";
 import { FinTransactionModalComponent } from "src/app/shared/fin-ui/fin-transaction-modal/fin-transaction-modal.component";
 import { HeaderComponent } from "./components/header/header.component";
-import { SidenavItem } from "./sidenav-item.type";
-import { SidenavItems } from "./sidenav-items";
-import { FinCCTransactionModalComponent } from "src/app/shared/fin-ui/fin-cc-transaction-modal/fin-cc-transaction-modal.component";
 
 const imports = [
     CommonModule, 
@@ -27,7 +27,7 @@ const imports = [
     RouterOutlet,
     FinFormsModule,
     MatMenuModule
-]
+];
 
 @Component({
     selector: "sidenav-component",
@@ -42,9 +42,9 @@ export class SidenavComponent {
     items: SidenavItem[] = SidenavItems;
     operation = Operation;
 
-    readonly LOGO_URL = "assets/img/logo-dark.svg"
-    readonly DARK_LOGO_URL = "assets/img/logo-light.svg"
-    readonly themeSwitcher = inject(ThemeSwitcher)
+    readonly LOGO_URL = "assets/img/logo-dark.svg";
+    readonly DARK_LOGO_URL = "assets/img/logo-light.svg";
+    readonly themeSwitcher = inject(ThemeSwitcher);
     private readonly dialog = inject(ModalService);
     private readonly _breakpointObserver = inject(BreakpointObserver);
     private readonly _router = inject(Router);
@@ -67,17 +67,18 @@ export class SidenavComponent {
         }
     }
 
-    createTransaction(operation: Operation) {
+    createTransaction(operation: Operation): void {
         const dialogRef = this.dialog.open(FinTransactionModalComponent, { data: { operation } });
         dialogRef.afterClosed().subscribe(() => {});
     }
 
-    createCreditCardTransaction() {
+    createCreditCardTransaction(): void {
         const dialogRef = this.dialog.open(FinCCTransactionModalComponent);
         dialogRef.afterClosed().subscribe(() => {});
     }
 
     private _watchBreakpoint(): void {
-        this._breakpointObserver.observe(["(max-width: 1024px)"]).subscribe((screenSize: BreakpointState) => this.isMobile = screenSize.matches);
+        this._breakpointObserver.observe(["(max-width: 1024px)"])
+            .subscribe((screenSize: BreakpointState) => this.isMobile = screenSize.matches);
     }
 }

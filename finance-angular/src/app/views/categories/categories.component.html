@@ -2,46 +2,43 @@
 
 <div class="fin-table">
     <form class="search mb-10" [formGroup]="formGroup">
-        <fin-input class="w-full h-12" placeholder="Nome" formControlName="name"/>
+        <fin-input class="w-full h-12" placeholder="Nome" formControlName="name" />
         <fin-select class="w-full h-12" name="operation" [formGroup]="formGroup" controlName="operation" [items]="operations" displayProperty="label" />
         <fin-button (click)="clear()" size="large" color="outlined" startIcon="delete">Limpar</fin-button>
         <fin-button (click)="find()" size="large" startIcon="search">Pesquisar</fin-button>
     </form>
     @if(categories.length > 0) {
-        <section class="table-section">
-            <table>
-                <thead>
-                    <th></th>
-                    <th>Nome</th>
-                    <th>Tipo</th>
-                    <th></th>
-                </thead>
-                <tbody>
-                    @for (category of categories; track category.categoryId) {
-                        <tr>
-                            <td style="padding-top: 0.5rem; padding-bottom: 0.5rem"><fin-category-icon [category]="category" /></td>
-                            <td>{{ category.name }}</td>
-                            <td>{{ operationsLabels.get(category.operation) }}</td>
-                            <td class="more"><mat-icon [matMenuTriggerFor]="menu" class="material-symbols-outlined">more_vert</mat-icon></td>
-                            <mat-menu #menu="matMenu">
-                                <button (click)="update(category.categoryId)" mat-menu-item>
-                                    <mat-icon class="material-symbols-outlined">edit</mat-icon>
-                                    <span>Editar</span>
-                                </button>
-                                <button (click)="delete(category)" mat-menu-item>
-                                    <mat-icon class="material-symbols-outlined">delete</mat-icon>
-                                    <span>Apagar</span>
-                                </button>
-                            </mat-menu>
-                        </tr>
-                      }
-                </tbody>
-            </table>
-        </section>
+    <section class="table-section">
+        <table>
+            <thead>
+                <th></th>
+                <th>Nome</th>
+                <th>Tipo</th>
+                <th></th>
+            </thead>
+            <tbody>
+                @for (category of categories; track category.categoryId) {
+                <tr>
+                    <td style="padding-top: 0.5rem; padding-bottom: 0.5rem"><fin-category-icon [category]="category" /></td>
+                    <td>{{ category.name }}</td>
+                    <td>{{ operationsLabels.get(category.operation) }}</td>
+                    <td class="more"><mat-icon [matMenuTriggerFor]="menu" class="material-symbols-outlined">more_vert</mat-icon></td>
+                    <mat-menu #menu="matMenu">
+                        <button (click)="update(category.categoryId)" mat-menu-item>
+                            <mat-icon class="material-symbols-outlined">edit</mat-icon>
+                            <span>Editar</span>
+                        </button>
+                        <button (click)="delete(category)" mat-menu-item>
+                            <mat-icon class="material-symbols-outlined">delete</mat-icon>
+                            <span>Apagar</span>
+                        </button>
+                    </mat-menu>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </section>
     } @else {
-        <h1>Sem registros.</h1>
+    <h1>Sem registros.</h1>
     }
-    
 </div>
-  
-

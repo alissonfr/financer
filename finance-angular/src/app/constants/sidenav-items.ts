@@ -1,4 +1,4 @@
-import { SidenavItem } from "./sidenav-item.type";
+import { SidenavItem } from "../dtos/sidenav-item.dto";
 
 export const SidenavItems: SidenavItem[] = [
     {
@@ -26,4 +26,4 @@ export const SidenavItems: SidenavItem[] = [
         route: "/reports",
         icon: "summarize"
     },
-]
+] as const;

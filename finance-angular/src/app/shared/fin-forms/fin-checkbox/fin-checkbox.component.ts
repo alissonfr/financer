@@ -8,6 +8,4 @@ import { Component } from "@angular/core";
     templateUrl: "./fin-checkbox.component.html",
     styleUrl: "./fin-checkbox.component.scss"
 })
-export class FinCheckboxComponent {
-
-}
+export class FinCheckboxComponent {}

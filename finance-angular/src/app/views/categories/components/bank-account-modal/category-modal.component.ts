@@ -33,12 +33,12 @@ export class CategoryModalComponent {
         icon: new FormControl("", [Validators.required]),
     });
     
-    private readonly categoryService = inject(CategoryService)
+    private readonly categoryService = inject(CategoryService);
     private readonly toastService = inject(ToastService);
     private readonly dialog = inject(MatDialogRef<CategoryModalComponent>);
     private readonly data = inject(MAT_DIALOG_DATA);
 
-    ngOnInit() {
+    ngOnInit(): void {
         if(this.data?.id) this.get(this.data.id);
         if(this.data?.name) this.formGroup.get("name")?.patchValue(this.data.name);
         this.getIcons();
@@ -59,7 +59,7 @@ export class CategoryModalComponent {
         if(category.categoryId) {
             this.update(category.categoryId, category);
         } else {
-            this.create(category)
+            this.create(category);
         }
     }
 
@@ -78,7 +78,7 @@ export class CategoryModalComponent {
         });
     }
 
-    private create(category: Category) {
+    private create(category: Category): void {
         this.categoryService.create(category).subscribe({
             next: () => {
                 this.toastService.success("Categoria criada com sucesso.");
@@ -88,7 +88,7 @@ export class CategoryModalComponent {
         });
     }
 
-    private update(id: number, category: Category) {
+    private update(id: number, category: Category): void {
         this.categoryService.update(id, category).subscribe({
             next: () => {
                 this.toastService.success("Categoria atualizada com sucesso.");
@@ -98,7 +98,7 @@ export class CategoryModalComponent {
         });
     }
 
-    private getIcons() {
+    private getIcons(): void {
         this.categoryService.getIcons().subscribe({
             next: result => this.icons = result,
             error: e => this.toastService.error(e, "Erro ao obter icones.")

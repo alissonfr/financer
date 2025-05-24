@@ -237,4 +237,4 @@ export const COLORS = [
         900: "#881337",
         950: "#4c0519",
     },
-]
+] as const;

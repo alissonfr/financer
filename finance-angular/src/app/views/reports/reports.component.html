@@ -1,29 +1,12 @@
 <h2>Gastos por Categoria</h2>
-<apx-chart
-  [series]="donutSeries"
-  [chart]="donutChart"
-  [labels]="donutLabels"
-  [legend]="donutLegend"
-  [responsive]="donutResponsive"
-></apx-chart>
+<apx-chart [series]="donutSeries" [chart]="donutChart" [labels]="donutLabels" [legend]="donutLegend" [responsive]="donutResponsive"></apx-chart>
 
-<br>
+<br />
 
 <h2>Evolução dos Gastos Mensais</h2>
-<apx-chart
-  [series]="areaSeries"
-  [chart]="areaChart"
-  [xaxis]="areaXAxis"
-  [dataLabels]="areaDataLabels"
-  [stroke]="areaStroke"
-></apx-chart>
+<apx-chart [series]="areaSeries" [chart]="areaChart" [xaxis]="areaXAxis" [dataLabels]="areaDataLabels" [stroke]="areaStroke"></apx-chart>
 
-<br>
+<br />
 
 <h2>{{ barTitle.text }}</h2>
-<apx-chart
-  [series]="barSeries"
-  [chart]="barChart"
-  [xaxis]="barXAxis"
-  [title]="barTitle"
-></apx-chart>
+<apx-chart [series]="barSeries" [chart]="barChart" [xaxis]="barXAxis" [title]="barTitle"></apx-chart>

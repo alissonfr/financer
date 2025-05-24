@@ -9,19 +9,19 @@ export class ThemeSwitcher {
     theme = signal<Theme>("dark");
     
     constructor() {
-        const storage = localStorage.getItem("theme")
+        const storage = localStorage.getItem("theme");
         if(storage) {
             this.theme.set(storage as Theme);
         }
         effect(() => this.handleTheme(this.theme()));
     }
 
-    changeTo(theme: Theme) {
+    changeTo(theme: Theme): void {
         this.theme.set(theme);
         localStorage.setItem("theme", theme);
     }
 
-    private handleTheme(theme: Theme) {
+    private handleTheme(theme: Theme): void {
         if (theme === "light") {
             document.documentElement.classList.remove("dark");
             return;

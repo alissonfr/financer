@@ -1,16 +1,12 @@
-<button
-  [class]="classes"
-  [disabled]="disabled || (globalLoadingService.isLoading() | async)"
-  (click)="handleClick($event)"
->
-  @if(globalLoadingService.isLoading() | async) {
+<button [class]="classes" [disabled]="disabled || globalLoadingService.loading()" (click)="handleClick($event)">
+    @if(globalLoadingService.loading()) {
     <svg class="w-5 h-5 inset-0 m-auto animate-spin absolute" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
     </svg>
-  }
-  <div [class.invisible]="globalLoadingService.isLoading() | async" class="inline-flex justify-center items-center gap-2">
-    <mat-icon *ngIf="startIcon" class="material-symbols-outlined">{{ startIcon }}</mat-icon>
-    <ng-content></ng-content>
-  </div>
+    }
+    <div [class.invisible]="globalLoadingService.loading()" class="inline-flex justify-center items-center gap-2">
+        <mat-icon *ngIf="startIcon" class="material-symbols-outlined">{{ startIcon }}</mat-icon>
+        <ng-content></ng-content>
+    </div>
 </button>

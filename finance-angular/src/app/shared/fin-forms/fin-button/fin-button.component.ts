@@ -2,8 +2,7 @@
 import { CommonModule } from "@angular/common";
 import { Component, EventEmitter, inject, Input, Output } from "@angular/core";
 import { MatIconModule } from "@angular/material/icon";
-import { GlobalLoadingService } from "@services/loading.service";
-import { firstValueFrom } from "rxjs";
+import { GlobalLoadingService } from "@services/global-loading.service";
 
 @Component({
     selector: "fin-button",
@@ -12,16 +11,16 @@ import { firstValueFrom } from "rxjs";
     styleUrls: ["./fin-button.component.scss"]
 })
 export class FinButtonComponent {
-  @Input() class: string = "";
+  @Input() class = "";
   @Input() size: "normal" | "large" = "normal";
   @Input() color: "primary" | "secondary" | "outlined" | "cancel" | "plain" = "primary";
-  @Input() disabled: boolean = false;
+  @Input() disabled = false;
   @Input() startIcon?: string;
   @Output() click = new EventEmitter<void>();
 
   protected globalLoadingService = inject(GlobalLoadingService);
 
-  get classes() {
+  get classes(): string {
       return `${this.size} ${this.color} ${this.class}`;
   }
 
@@ -29,7 +28,7 @@ export class FinButtonComponent {
       event.stopPropagation();
       event.preventDefault();
 
-      const isLoading = await firstValueFrom(this.globalLoadingService.isLoading());
+      const isLoading = this.globalLoadingService.loading();
 
       if (this.disabled || isLoading) {
           return;

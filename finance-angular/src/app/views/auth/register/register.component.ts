@@ -3,7 +3,7 @@ import { Component, inject } from "@angular/core";
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { Router, RouterLink } from "@angular/router";
 import { AuthService } from "@services/api/auth.service";
-import { GlobalLoadingService } from "@services/loading.service";
+import { GlobalLoadingService } from "@services/global-loading.service";
 import { ToastService } from "@services/toast.service";
 import { isFormInvalid } from "@utils/form-validator";
 import { User } from "src/app/models/user";

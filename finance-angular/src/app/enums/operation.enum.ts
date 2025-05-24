@@ -1,11 +1,19 @@
 export enum Operation {
     INCOME = "INCOME",
     EXPENSE = "EXPENSE",
-    // CREDIT_CARD_EXPENSE = "CREDIT_CARD_EXPENSE",
 }
 
 export const OperationLabels = new Map<Operation, string>([
     [Operation.INCOME, "Receita"],
     [Operation.EXPENSE, "Despesa"],
-    // [Operation.CREDIT_CARD_EXPENSE, "Despesa no cartão de crédito"],
+]);
+
+export const CreateOperationLabels = new Map<Operation, string>([
+    [Operation.INCOME, "Nova receita"],
+    [Operation.EXPENSE, "Nova despesa"],
+]);
+
+export const UpdateOperationLabels = new Map<Operation, string>([
+    [Operation.INCOME, "Atualizar receita"],
+    [Operation.EXPENSE, "Atualizar despesa"],
 ]);

@@ -1,6 +1,17 @@
 import { computed, signal } from "@angular/core";
 
-export function createSelectionModel<T>(items: T[], initialSelection: T[] = []) {
+type SelectionModel<T> = {
+    selected: () => T[];
+    select: (item: T) => void;
+    deselect: (item: T) => void;
+    clear: () => void;
+    toggle: (item: T) => void;
+    selectAll: () => void;
+    isSelected: (item: T) => boolean;
+    isAllSelected: () => boolean;
+}
+
+export function createSelectionModel<T>(items: T[], initialSelection: T[] = []): SelectionModel<T> {
     const selectedSignal = signal(initialSelection);
 
     return {

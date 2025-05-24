@@ -2,8 +2,8 @@ import { inject, Injectable } from "@angular/core";
 import { DateControlService } from "@services/date-control.service";
 import { HttpService } from "@services/http.service";
 import { Observable } from "rxjs";
-import { environment } from "src/app/environment";
 import { FinancialReportDTO } from "src/app/models/financial-report";
+import { environment } from "src/environments/environment";
 
 @Injectable({ 
     providedIn: "root" 

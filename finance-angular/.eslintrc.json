@@ -5,9 +5,7 @@
   ],
   "overrides": [
     {
-      "files": [
-        "*.ts"
-      ],
+      "files": ["*.ts"],
       "extends": [
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
@@ -15,8 +13,8 @@
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
       "rules": {
-        "semi": "off",
-        "quotes": [ "error", "double" ],
+        "semi": ["error", "always"],
+        "quotes": ["error", "double"],
         "indent": ["error", 4],
         "prefer-const": "warn",
         "no-unused-vars": "off",
@@ -29,18 +27,22 @@
         "@angular-eslint/use-lifecycle-interface": "off",
         "no-unused-expressions": "off",
         "@typescript-eslint/no-unused-expressions": "off",
-        "@angular-eslint/template/click-events-have-key-events": "off",
-        "@angular-eslint/template/interactive-supports-focus": "off"
+        "@typescript-eslint/explicit-function-return-type": ["error", { "allowExpressions": true }],
+        "@typescript-eslint/explicit-module-boundary-types": ["error", { "allowArgumentsExplicitlyTypedAsAny": true }],
+        "@typescript-eslint/no-inferrable-types": ["error", { "ignoreParameters": true }]
       }
     },
     {
-      "files": [
-        "*.html"
-      ],
+      "files": ["*.html"],
       "extends": [
         "plugin:@angular-eslint/template/recommended",
         "plugin:@angular-eslint/template/accessibility"
-      ]
+      ],
+      "rules": {
+        "@angular-eslint/template/click-events-have-key-events": "off",
+        "@angular-eslint/template/interactive-supports-focus": "off"
+      }
     }
+
   ]
 }

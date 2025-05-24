@@ -5,12 +5,8 @@ import { Router, RouterLink } from "@angular/router";
 import { AuthService } from "@services/api/auth.service";
 import { ToastService } from "@services/toast.service";
 import { isFormInvalid } from "@utils/form-validator";
+import { LoginRequest } from "src/app/dtos/login-request.dto";
 import { FinFormsModule } from "src/app/shared/fin-forms/fin-forms.module";
-
-class LoginRequest {
-    email: string;
-    password: string;
-}
 
 @Component({
     selector: "login",

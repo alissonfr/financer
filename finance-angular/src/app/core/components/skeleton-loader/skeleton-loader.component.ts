@@ -9,6 +9,5 @@ import { Component, Input } from "@angular/core";
     styleUrls: ["./skeleton-loader.component.scss"],
 })
 export class SkeletonLoaderComponent {
-  @Input() count = 3;
   @Input() image = false;
 }

@@ -1,18 +1,19 @@
 import { inject, Injectable } from "@angular/core";
+import { HttpParams } from "@interfaces/http-params.type";
 import { HttpService } from "@services/http.service";
 import { Observable } from "rxjs";
-import { environment } from "src/app/environment";
 import { Category } from "src/app/models/category";
 import { Icon } from "src/app/models/icon";
+import { environment } from "src/environments/environment";
 
 @Injectable({ 
     providedIn: "root" 
 })
 export class CategoryService {
     private readonly PATH = `${environment.API_URL}v1/categories`;
-    private http = inject(HttpService)
+    private http = inject(HttpService);
 
-    find(params?: Record<string, string | number | null | undefined>): Observable<Category[]> {
+    find(params?: HttpParams): Observable<Category[]> {
         return this.http.get<Category[]>(this.PATH, params);
     }
 

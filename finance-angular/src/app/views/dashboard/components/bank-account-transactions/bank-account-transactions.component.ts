@@ -32,38 +32,38 @@ export class BankAccountTransactionsComponent {
     formGroup = new FormGroup({
         search: new FormControl(""),
         sort: new FormControl({ label: "", value: "" }),
-    })
+    });
 
     sort: {label: string, value: string}[] = [
         { label: "Ordenar por Data", value: "date" },
         { label: "Ordenar por Valor", value: "amount" },
-    ]
+    ];
 
-    get operations() {
+    get operations(): typeof Operation {
         return Operation;
     }
 
-    get transactionStatus() {
+    get transactionStatus(): typeof TransactionStatus {
         return TransactionStatus;
     }
 
-    get transactionType() {
+    get transactionType(): typeof TransactionType {
         return TransactionType;
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.loadTransactions();
         this.bankAccountTransactionService.transactionUpdated$.subscribe(() => this.loadTransactions());
         this.formGroup.valueChanges.pipe(debounceTime(500)).subscribe(() => this.loadTransactions());
     }
 
-    changeStatus(id: number) {
+    changeStatus(id: number): void {
         this.bankAccountTransactionService.updateStatus(id).subscribe({
             error: (e) => this.toastService.error(e, "Erro ao obter transações.")
         });
     }
 
-    delete(transaction: BankAccountTransaction) {
+    delete(transaction: BankAccountTransaction): void {
         if(transaction.type === TransactionType.SINGLE) {
             this.deleteSingleTransaction(transaction);
             return;
@@ -72,14 +72,14 @@ export class BankAccountTransactionsComponent {
         this.deleteRecurringTransaction(transaction);
     }
 
-    private deleteRecurringTransaction(transaction: BankAccountTransaction) {
+    private deleteRecurringTransaction(transaction: BankAccountTransaction): void {
         const dialogRef = this.dialog.deleteTransaction(transaction);
         dialogRef.afterClosed().subscribe((result) => {
-            if(!result) return
+            if(!result) return;
 
             this.bankAccountTransactionService.delete(transaction.bankAccountTransactionId, result as DeleteTransactionOptions).subscribe({
                 next: () => {
-                    this.toastService.success("Transações apagadas com sucesso.")
+                    this.toastService.success("Transações apagadas com sucesso.");
                     this.loadTransactions();
                 },
                 error: e => this.toastService.error(e, "Erro ao apagar transações.")
@@ -87,16 +87,16 @@ export class BankAccountTransactionsComponent {
         });
     }
     
-    private deleteSingleTransaction(transaction: BankAccountTransaction) {
-        const dialogRef = this.dialog.confirm({
+    private deleteSingleTransaction(transaction: BankAccountTransaction): void {
+        const dialogRef = this.dialog.confirmDeletion({
             title: "Apagar transação",
             message: `Você está prestes a apagar a transação "${transaction.description}". Você tem certeza?`
         });
         dialogRef.afterClosed().subscribe(result => {
-            if(!result) return
+            if(!result) return;
             this.bankAccountTransactionService.delete(transaction.bankAccountTransactionId).subscribe({
                 next: () => {
-                    this.toastService.success("Transação apagada com sucesso.")
+                    this.toastService.success("Transação apagada com sucesso.");
                     this.loadTransactions();
                 },
                 error: e => this.toastService.error(e, "Erro ao apagar transação.")
@@ -106,7 +106,7 @@ export class BankAccountTransactionsComponent {
         });
     }
 
-    update(transaction: BankAccountTransaction) {
+    update(transaction: BankAccountTransaction): void {
         const dialogRef = this.dialog.open(FinTransactionModalComponent, { data: { 
             operation: transaction.operation, 
             id: transaction.bankAccountTransactionId
@@ -118,7 +118,7 @@ export class BankAccountTransactionsComponent {
         const filters = { 
             sort: this.formGroup.value?.sort?.value,
             search: this.formGroup.value?.search
-        }
+        };
         this.bankAccountTransactionService.find(filters).subscribe({
             next: (result) => this.bankAccountTransactions = result,
             error: (e) => this.toastService.error(e, "Erro ao obter transações.")

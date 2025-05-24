@@ -9,11 +9,11 @@
         &:disabled {
             @apply cursor-not-allowed opacity-50;
         }
-            
+
         &.normal {
             @apply h-9 px-7;
         }
-        
+
         &.large {
             @apply h-12 px-8 text-base;
 
@@ -22,15 +22,14 @@
             }
         }
 
-        
         &.primary {
             @apply bg-primary text-white dark:text-text-dark;
         }
-        
+
         &.secondary {
             @apply bg-green-500 text-white dark:text-text-dark;
         }
-        
+
         &.outlined {
             @apply bg-transparent text-primary border border-primary hover:bg-gray-100 dark:hover:bg-gray-900 dark:brightness-150;
         }
@@ -39,7 +38,7 @@
             @apply bg-transparent text-text dark:text-text-dark border border-text dark:border-text-dark
                 hover:bg-gray-50 dark:hover:bg-hover-dark;
         }
-        
+
         &.cancel {
             @apply bg-error text-white border border-transparent transition duration-300;
 

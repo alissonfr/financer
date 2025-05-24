@@ -12,7 +12,6 @@ import { FinFormsModule } from "src/app/shared/fin-forms/fin-forms.module";
     selector: "bank-account-modal",
     imports: [CommonModule, ReactiveFormsModule, FinFormsModule],
     templateUrl: "./bank-account-modal.component.html",
-    styleUrl: "./bank-account-modal.component.scss"
 })
 export class BankAccountModalComponent {
     formGroup = new FormGroup({
@@ -21,12 +20,12 @@ export class BankAccountModalComponent {
         initialAmount: new FormControl("", [Validators.required]),
     });
     
-    private readonly bankAccountService = inject(BankAccountService)
+    private readonly bankAccountService = inject(BankAccountService);
     private readonly toastService = inject(ToastService);
     private readonly dialog = inject(MatDialogRef<BankAccountModalComponent>);
     private readonly data = inject(MAT_DIALOG_DATA);
 
-    ngOnInit() {
+    ngOnInit(): void {
         if(this.data?.id) this.get(this.data.id);
         if(this.data?.name) this.formGroup.get("name")?.patchValue(this.data.name);
     }
@@ -46,7 +45,7 @@ export class BankAccountModalComponent {
         if(bankAccount.bankAccountId) {
             this.update(bankAccount.bankAccountId, bankAccount);
         } else {
-            this.create(bankAccount)
+            this.create(bankAccount);
         }
     }
 
@@ -57,7 +56,7 @@ export class BankAccountModalComponent {
         });
     }
 
-    private create(bankAccount: BankAccount) {
+    private create(bankAccount: BankAccount): void {
         this.bankAccountService.create(bankAccount).subscribe({
             next: () => {
                 this.toastService.success("Conta bancária criada com sucesso.");
@@ -67,7 +66,7 @@ export class BankAccountModalComponent {
         });
     }
 
-    private update(id: number, bankAccount: BankAccount) {
+    private update(id: number, bankAccount: BankAccount): void {
         this.bankAccountService.update(id, bankAccount).subscribe({
             next: () => {
                 this.toastService.success("Conta bancária atualizada com sucesso.");

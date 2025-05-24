@@ -10,6 +10,6 @@ import { Category } from "src/app/models/category";
     styleUrl: "./fin-category-icon.component.scss"
 })
 export class FinCategoryIconComponent {
-    @Input({ required: true }) category: Category
+    @Input({ required: true }) category: Category;
     @Input() size: "normal" | "small" = "normal";
 }

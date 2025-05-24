@@ -1,15 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CommonModule } from "@angular/common";
 import { Component } from "@angular/core";
-import { NgApexchartsModule, ApexAxisChartSeries,
-    ApexNonAxisChartSeries,
+import {
+    ApexAxisChartSeries,
     ApexChart,
-    ApexXAxis,
     ApexDataLabels,
-    ApexStroke,
-    ApexResponsive,
     ApexLegend,
-    ApexTitleSubtitle } from "ng-apexcharts";
+    ApexNonAxisChartSeries,
+    ApexResponsive,
+    ApexStroke,
+    ApexTitleSubtitle,
+    ApexXAxis,
+    NgApexchartsModule
+} from "ng-apexcharts";
 
 @Component({
     selector: "reports",
@@ -19,7 +22,6 @@ import { NgApexchartsModule, ApexAxisChartSeries,
     styleUrl: "./reports.component.scss"
 })
 export class ReportsComponent {
-// Donut - Gastos por categoria
     donutSeries: ApexNonAxisChartSeries = [44, 55, 13, 43, 22];
     donutChart: ApexChart = { type: "donut" };
     donutLabels = ["Alimentação", "Transporte", "Lazer", "Educação", "Outros"];
@@ -34,7 +36,6 @@ export class ReportsComponent {
         },
     ];
 
-    // Área - Evolução mensal de gastos
     areaSeries: ApexAxisChartSeries = [
         {
             name: "Gastos",
@@ -46,7 +47,6 @@ export class ReportsComponent {
     areaDataLabels: ApexDataLabels = { enabled: false };
     areaStroke: ApexStroke = { curve: "smooth" };
 
-    // Barras - Receita vs Despesa
     barSeries: ApexAxisChartSeries = [
         {
             name: "Receita",

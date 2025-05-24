@@ -1,9 +1,9 @@
 import { inject, Injectable } from "@angular/core";
+import { GlobalLoadingService } from "@services/global-loading.service";
 import { HttpService } from "@services/http.service";
-import { GlobalLoadingService } from "@services/loading.service";
 import { finalize, Observable, tap } from "rxjs";
-import { environment } from "src/app/environment";
 import { User } from "src/app/models/user";
+import { environment } from "src/environments/environment";
 
 class LoginResponse {
     token: string;
@@ -12,7 +12,7 @@ class LoginResponse {
 
 class RegisterResponse {
     token: string;
-    user: User
+    user: User;
 }
 
 @Injectable({
@@ -30,10 +30,10 @@ export class AuthService {
                 this.logout();
                 window.location.reload();
             }
-        }, 5000)
+        }, 5000);
     }
 
-    register(data: User) {
+    register(data: User): Observable<RegisterResponse> {
         return this.http.post<RegisterResponse>(`${this.PATH}/register`, data);
     }
 
@@ -49,22 +49,17 @@ export class AuthService {
             );
     }
 
-    logout() {
+    logout(): void {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
     }
 
-    isLoggedIn() {
-        const user = localStorage.getItem("user");
-        const token = localStorage.getItem("token");
-        if (!user || !token) {
-            return false;
-        }
-        return true;
+    isLoggedIn(): boolean {
+        return !!localStorage.getItem("user") && !!localStorage.getItem("token");
     }
 
     private isTokenExpired(token: string): boolean {
-        const expiry = (JSON.parse(atob(token.split(".")[1]))).exp;
-        return (Math.floor((new Date).getTime() / 1000)) >= expiry;
+        const expireIn = (JSON.parse(atob(token.split(".")[1]))).exp;
+        return (Math.floor((new Date).getTime() / 1000)) >= expireIn;
     }
 }

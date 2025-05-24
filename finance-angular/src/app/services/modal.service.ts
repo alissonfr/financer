@@ -16,11 +16,11 @@ export class ModalService {
         return this.dialog.open(component, { minWidth: "40%", ...config });
     }
 
-    confirm(data: { title: string, message: string }) {
+    confirmDeletion(data: { title: string, message: string }): MatDialogRef<FinDeleteModalComponent> {
         return this.open(FinDeleteModalComponent, { width: "400px", height: "300px", data: { ...data }, maxWidth: "400px" });
     }
 
-    deleteTransaction(transaction: BankAccountTransaction) {
+    deleteTransaction(transaction: BankAccountTransaction): MatDialogRef<FinDeleteTransactionModalComponent> {
         return this.open(FinDeleteTransactionModalComponent, { width: "500px", height: "450px", data: { transaction }, maxWidth: "500px" });
     }
 

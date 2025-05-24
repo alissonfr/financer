@@ -5,9 +5,9 @@ import { ToastService } from "@services/toast.service";
 import { FinancialReportDTO } from "src/app/models/financial-report";
 import { BalanceCardComponent } from "./components/balance-card/balance-card.component";
 import { BankAccountTransactionsComponent } from "./components/bank-account-transactions/bank-account-transactions.component";
+import { CreditCardTransactionsComponent } from "./components/credit-card-transactions/credit-card-transactions.component";
 import { ExpensesCardComponent } from "./components/expenses-card/expenses-card.component";
 import { IncomesCardComponent } from "./components/incomes-card/incomes-card.component";
-import { CreditCardTransactionsComponent } from "./components/credit-card-transactions/credit-card-transactions.component";
 
 @Component({
     selector: "dashboard",

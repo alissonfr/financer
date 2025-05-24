@@ -8,7 +8,7 @@ import { YearViewComponent } from "./components/year-view/year-view.component";
 const components = [
     MonthViewComponent, 
     YearViewComponent, 
-]
+];
 
 @Component({
     selector: "date-view",
@@ -16,5 +16,5 @@ const components = [
     templateUrl: "./date-view.component.html"
 }) 
 export class DateViewComponent {
-    dateControlService = inject(DateControlService)
+    dateControlService = inject(DateControlService);
 }

@@ -12,13 +12,13 @@ import { ChevronComponent } from "../chevron/chevron.component";
 }) 
 export class MonthViewComponent {
     dateControl = inject(DateControlService);
-    showNextMonth: boolean = true;
+    showNextMonth = true;
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.verifyMonth();
     }
 
-    verifyMonth() {
+    verifyMonth(): void {
         this.dateControl.monthIndex.subscribe((month) => {
             const year = this.dateControl.year.value;
             const now = new Date();
@@ -27,6 +27,6 @@ export class MonthViewComponent {
             const selectedDate = new Date(year, month);
             
             this.showNextMonth = selectedDate < maxDate;
-        })
+        });
     }
 }

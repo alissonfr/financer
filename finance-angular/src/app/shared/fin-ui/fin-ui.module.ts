@@ -6,7 +6,7 @@ import { PageHeaderComponent } from "./page-header/page-header.component";
 const components = [
     PageHeaderComponent,
     FinCategoryIconComponent
-]
+];
 
 @NgModule({
     declarations: [],

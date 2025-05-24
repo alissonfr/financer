@@ -1,0 +1,11 @@
+::-webkit-scrollbar {
+  @apply w-[.4rem] h-[.4rem] rounded bg-hover-dark/5;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply rounded bg-hover-dark;
+}
+
+ul {
+  @apply list-none;
+}

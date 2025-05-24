@@ -4,7 +4,7 @@
 
   .search {
     @apply flex gap-3 items-center justify-between w-full;
-  }
+}
 
   .table-section {
     @apply w-full rounded-lg;
@@ -17,8 +17,8 @@
   
         th {
           @apply px-6 py-3;
-        }
       }
+    }
   
       tbody {
         tr {
@@ -32,19 +32,19 @@
   
               .mat-icon {
                 @apply ml-auto cursor-pointer p-4 duration-300 hover:bg-gray-100 dark:hover:bg-hover-dark rounded-full dark:hover:brightness-125;
-              }
             }
           }
         }
       }
     }
   }
+}
 
   h1 {
     @apply text-lg font-semibold text-text dark:text-text-dark text-center;
-  }
+}
 }
 
 th:last-child .skeleton {
-    width: 20px;
+  width: 20px;
 }

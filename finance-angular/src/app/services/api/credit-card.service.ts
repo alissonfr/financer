@@ -1,10 +1,11 @@
 import { inject, Injectable, signal } from "@angular/core";
+import { HttpParams } from "@interfaces/http-params.type";
 import { DateControlService } from "@services/date-control.service";
 import { HttpService } from "@services/http.service";
-import { forkJoin, Observable, Subject, switchMap, finalize } from "rxjs";
-import { environment } from "src/app/environment";
+import { finalize, forkJoin, Observable, Subject, switchMap } from "rxjs";
 import { CreditCard } from "src/app/models/credit-card";
 import { CreditCardWithTransactions } from "src/app/models/credit-card-with-transactions";
+import { environment } from "src/environments/environment";
 import { FileService } from "./file.service";
 
 @Injectable({ 
@@ -32,7 +33,7 @@ export class CreditCardService {
         return obs.pipe(finalize(() => this.isLoading.set(false)));
     }
 
-    find(params?: Record<string, string | number | null | undefined>): Observable<CreditCard[]> {
+    find(params?: HttpParams): Observable<CreditCard[]> {
         return this.withLoading(
             this.http.get<CreditCard[]>(this.PATH, params).pipe(
                 switchMap((cards) => {
@@ -51,7 +52,7 @@ export class CreditCardService {
         );
     }
 
-    findWithTransactions(params?: Record<string, string | number | null | undefined>): Observable<CreditCardWithTransactions[]> {
+    findWithTransactions(params?: HttpParams): Observable<CreditCardWithTransactions[]> {
         const query = { ...params, month: this.dateControlService.monthIndex.value + 1, year: this.dateControlService.year.value };
         return this.withLoading(
             this.http.get<CreditCardWithTransactions[]>(`${this.PATH}/transactions`, query)

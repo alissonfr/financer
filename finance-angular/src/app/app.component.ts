@@ -14,5 +14,5 @@ import { ThemeSwitcher } from "@utils/theme-switcher";
     `
 })
 export class AppComponent {
-    readonly themeSwitcher = inject(ThemeSwitcher)
+    readonly themeSwitcher = inject(ThemeSwitcher);
 }
