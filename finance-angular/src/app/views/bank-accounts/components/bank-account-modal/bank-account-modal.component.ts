@@ -5,12 +5,13 @@ import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { BankAccountService } from "@services/api/bank-account.service";
 import { ToastService } from "@services/toast.service";
 import { isFormInvalid } from "@utils/form-validator";
+import { InputComponent } from "src/app/components/form/input/input.component";
 import { BankAccount } from "src/app/models/bank-account";
-import { FinFormsModule } from "src/app/shared/fin-forms/fin-forms.module";
+import { ButtonComponent } from "../../../../components/form/button/button.component";
 
 @Component({
     selector: "bank-account-modal",
-    imports: [CommonModule, ReactiveFormsModule, FinFormsModule],
+    imports: [CommonModule, ReactiveFormsModule, ButtonComponent, InputComponent],
     templateUrl: "./bank-account-modal.component.html",
 })
 export class BankAccountModalComponent {

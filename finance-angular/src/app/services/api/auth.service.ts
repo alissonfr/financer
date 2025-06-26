@@ -2,18 +2,10 @@ import { inject, Injectable } from "@angular/core";
 import { GlobalLoadingService } from "@services/global-loading.service";
 import { HttpService } from "@services/http.service";
 import { finalize, Observable, tap } from "rxjs";
+import { LoginResponse } from "src/app/dtos/login-response.dto";
+import { RegisterResponse } from "src/app/dtos/register-response.dto";
 import { User } from "src/app/models/user";
 import { environment } from "src/environments/environment";
-
-class LoginResponse {
-    token: string;
-    user: User;
-}
-
-class RegisterResponse {
-    token: string;
-    user: User;
-}
 
 @Injectable({
     providedIn: "root"

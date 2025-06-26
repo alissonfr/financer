@@ -1,6 +1,6 @@
 import { ToastStatus } from "@interfaces/toast-status.type";
 
-export interface Toast {
+export class Toast {
     id: string;
     message: string;
     type?: ToastStatus;

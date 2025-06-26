@@ -1,21 +1,7 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, map, Observable, Subject } from "rxjs";
 import { MONTHS } from "../constants/date.constants";
-
-enum MonthsIndexEnum {
-    JANEIRO,
-    FEVEREIRO,
-    MARCO,
-    ABRIL,
-    MAIO,
-    JUNHO,
-    JULHO,
-    AGOSTO,
-    SETEMBRO,
-    OUTUBRO,
-    NOVEMBRO,
-    DEZEMBRO
-}
+import { MonthsIndexEnum } from "../enums/month-index.enum";
 
 @Injectable({ 
     providedIn: "root" 

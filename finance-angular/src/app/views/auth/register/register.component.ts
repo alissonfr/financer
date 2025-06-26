@@ -6,12 +6,13 @@ import { AuthService } from "@services/api/auth.service";
 import { GlobalLoadingService } from "@services/global-loading.service";
 import { ToastService } from "@services/toast.service";
 import { isFormInvalid } from "@utils/form-validator";
+import { InputComponent } from "src/app/components/form/input/input.component";
 import { User } from "src/app/models/user";
-import { FinFormsModule } from "src/app/shared/fin-forms/fin-forms.module";
+import { ButtonComponent } from "../../../components/form/button/button.component";
 
 @Component({
     selector: "register",
-    imports: [CommonModule, ReactiveFormsModule, FinFormsModule, RouterLink],
+    imports: [CommonModule, ReactiveFormsModule, RouterLink, ButtonComponent, InputComponent],
     templateUrl: "./register.component.html"
 })
 export class RegisterComponent {

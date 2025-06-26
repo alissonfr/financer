@@ -6,14 +6,15 @@ import { MatMenuModule } from "@angular/material/menu";
 import { CreditCardService } from "@services/api/credit-card.service";
 import { ModalService } from "@services/modal.service";
 import { ToastService } from "@services/toast.service";
+import { InputComponent } from "src/app/components/form/input/input.component";
 import { CreditCard } from "src/app/models/credit-card";
-import { FinUiModule } from "src/app/shared/fin-ui/fin-ui.module";
-import { FinFormsModule } from "../../shared/fin-forms/fin-forms.module";
+import { ButtonComponent } from "../../components/form/button/button.component";
+import { PageHeaderComponent } from "../../components/ui/page-header/page-header.component";
 import { CreditCardModalComponent } from "./components/credit-card-modal/credit-card-modal.component";
 
 @Component({
     selector: "credit-cards",
-    imports: [CommonModule, MatIconModule, FinFormsModule, FinUiModule, MatMenuModule, ReactiveFormsModule],
+    imports: [CommonModule, MatIconModule, MatMenuModule, ReactiveFormsModule, PageHeaderComponent, ButtonComponent, InputComponent],
     templateUrl: "./credit-cards.component.html",
     styleUrl: "./credit-cards.component.scss"
 }) 

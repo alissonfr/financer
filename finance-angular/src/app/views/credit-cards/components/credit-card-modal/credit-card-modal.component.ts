@@ -7,13 +7,15 @@ import { CreditCardService } from "@services/api/credit-card.service";
 import { IssuerService } from "@services/api/issuer.service";
 import { ToastService } from "@services/toast.service";
 import { isFormInvalid } from "@utils/form-validator";
+import { AutocompleteComponent } from "src/app/components/form/autocomplete/autocomplete.component";
+import { InputComponent } from "src/app/components/form/input/input.component";
 import { CreditCard } from "src/app/models/credit-card";
 import { Issuer } from "src/app/models/issuer";
-import { FinFormsModule } from "src/app/shared/fin-forms/fin-forms.module";
+import { ButtonComponent } from "../../../../components/form/button/button.component";
 
 @Component({
     selector: "credit-card-modal",
-    imports: [CommonModule, ReactiveFormsModule, FinFormsModule],
+    imports: [CommonModule, ReactiveFormsModule, ButtonComponent, AutocompleteComponent, InputComponent],
     templateUrl: "./credit-card-modal.component.html",
 })
 export class CreditCardModalComponent {

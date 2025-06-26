@@ -21,9 +21,11 @@
             </thead>
             @if(bankAccountTransactionService.isLoading()) {
             <tbody>
-                @for (_ of [].constructor(6); track $index) {
-                <tr>
+                @for (_ of [].constructor(4); track $index) {
+                <tr class="skeleton">
                     <th><skeleton-loader [image]="true" /></th>
+                    <th><skeleton-loader /></th>
+                    <th><skeleton-loader /></th>
                     <th><skeleton-loader /></th>
                     <th><skeleton-loader /></th>
                     <th><skeleton-loader /></th>
@@ -35,7 +37,7 @@
             <tbody>
                 @for (transaction of bankAccountTransactions; track transaction.bankAccountTransactionId) {
                 <tr>
-                    <td style="padding-top: 0.5rem; padding-bottom: 0.5rem"><fin-category-icon [category]="transaction.category" /></td>
+                    <td style="padding-top: 0.5rem; padding-bottom: 0.5rem"><category-icon [category]="transaction.category" /></td>
                     <td>{{ transaction.date | date : "dd/MM/yyyy" }}</td>
                     <td>
                         {{ transaction.description }}

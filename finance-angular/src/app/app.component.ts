@@ -2,8 +2,8 @@ import { CommonModule } from "@angular/common";
 import { Component, inject } from "@angular/core";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { RouterOutlet } from "@angular/router";
-import { FinToastComponent } from "@core/components/fin-toast/fin-toast.component";
 import { ThemeSwitcher } from "@utils/theme-switcher";
+import { FinToastComponent } from "src/app/components/ui/toast/toast.component";
 
 @Component({
     selector: "app-root",

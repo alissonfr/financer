@@ -19,7 +19,7 @@
             <tbody>
                 @for (category of categories; track category.categoryId) {
                 <tr>
-                    <td style="padding-top: 0.5rem; padding-bottom: 0.5rem"><fin-category-icon [category]="category" /></td>
+                    <td style="padding-top: 0.5rem; padding-bottom: 0.5rem"><category-icon [category]="category" /></td>
                     <td>{{ category.name }}</td>
                     <td>{{ operationsLabels.get(category.operation) }}</td>
                     <td class="more"><mat-icon [matMenuTriggerFor]="menu" class="material-symbols-outlined">more_vert</mat-icon></td>

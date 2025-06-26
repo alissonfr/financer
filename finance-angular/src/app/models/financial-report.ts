@@ -1,5 +1,3 @@
-
-
 export class FinancialReportDTO {
     totalBalance: BalanceReportDTO;
     expenses: ExpensesDTO;

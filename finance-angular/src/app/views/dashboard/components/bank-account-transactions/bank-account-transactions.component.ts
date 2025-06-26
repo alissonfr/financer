@@ -7,19 +7,20 @@ import { BankAccountTransactionService } from "@services/api/bank-account-transa
 import { ModalService } from "@services/modal.service";
 import { ToastService } from "@services/toast.service";
 import { debounceTime } from "rxjs";
+import { InputComponent } from "src/app/components/form/input/input.component";
+import { SelectComponent } from "src/app/components/form/select/select.component";
+import { BankAccountTransactionModalComponent } from "src/app/components/modal/bank-account-transaction-modal/bank-account-transaction-modal.component";
 import { DeleteTransactionOptions } from "src/app/enums/delete-transaction-options.enum";
 import { Operation } from "src/app/enums/operation.enum";
 import { TransactionStatus } from "src/app/enums/transaction-status.enum";
 import { TransactionType } from "src/app/enums/transaction-type.enum";
 import { BankAccountTransaction } from "src/app/models/bank-account-transaction";
-import { FinFormsModule } from "src/app/shared/fin-forms/fin-forms.module";
-import { FinTransactionModalComponent } from "src/app/shared/fin-ui/fin-transaction-modal/fin-transaction-modal.component";
-import { FinUiModule } from "src/app/shared/fin-ui/fin-ui.module";
-import { SkeletonLoaderComponent } from "../../../../core/components/skeleton-loader/skeleton-loader.component";
+import { CategoryIconComponent } from "../../../../components/ui/category-icon/category-icon.component";
+import { SkeletonLoaderComponent } from "../../../../components/ui/skeleton-loader/skeleton-loader.component";
 
 @Component({
     selector: "bank-account-transactions",
-    imports: [CommonModule, MatIconModule, FinUiModule, MatMenuModule, FinFormsModule, ReactiveFormsModule, SkeletonLoaderComponent],
+    imports: [CommonModule, MatIconModule, MatMenuModule, ReactiveFormsModule, SkeletonLoaderComponent, CategoryIconComponent, SelectComponent, InputComponent],
     templateUrl: "./bank-account-transactions.component.html"
 })
 export class BankAccountTransactionsComponent {
@@ -107,7 +108,7 @@ export class BankAccountTransactionsComponent {
     }
 
     update(transaction: BankAccountTransaction): void {
-        const dialogRef = this.dialog.open(FinTransactionModalComponent, { data: { 
+        const dialogRef = this.dialog.open(BankAccountTransactionModalComponent, { data: { 
             operation: transaction.operation, 
             id: transaction.bankAccountTransactionId
         }});

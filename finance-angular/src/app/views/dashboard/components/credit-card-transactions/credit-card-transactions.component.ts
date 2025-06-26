@@ -10,14 +10,14 @@ import { ModalService } from "@services/modal.service";
 import { ToastService } from "@services/toast.service";
 import { CreditCardModalComponent } from "@views/credit-cards/components/credit-card-modal/credit-card-modal.component";
 import { CreditCardWithTransactions } from "src/app/models/credit-card-with-transactions";
-import { FinFormsModule } from "src/app/shared/fin-forms/fin-forms.module";
-import { FinUiModule } from "src/app/shared/fin-ui/fin-ui.module";
-import { ChevronComponent } from "../../../../core/components/sidenav/components/header/components/date-view/components/chevron/chevron.component";
-import { SkeletonLoaderComponent } from "../../../../core/components/skeleton-loader/skeleton-loader.component";
+import { InputComponent } from "../../../../components/form/input/input.component";
+import { SelectComponent } from "../../../../components/form/select/select.component";
+import { ChevronComponent } from "../../../../components/ui/chevron/chevron.component";
+import { SkeletonLoaderComponent } from "../../../../components/ui/skeleton-loader/skeleton-loader.component";
 
 @Component({
     selector: "credit-card-transactions",
-    imports: [CommonModule, MatIconModule, FinUiModule, MatMenuModule, FinFormsModule, ChevronComponent, MatTooltipModule, SkeletonLoaderComponent],
+    imports: [CommonModule, MatIconModule, MatMenuModule, ChevronComponent, MatTooltipModule, SkeletonLoaderComponent, InputComponent, SelectComponent],
     templateUrl: "./credit-card-transactions.component.html"
 })
 export class CreditCardTransactionsComponent {

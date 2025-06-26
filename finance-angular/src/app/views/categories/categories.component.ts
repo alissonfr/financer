@@ -6,15 +6,18 @@ import { MatMenuModule } from "@angular/material/menu";
 import { CategoryService } from "@services/api/category.service";
 import { ModalService } from "@services/modal.service";
 import { ToastService } from "@services/toast.service";
+import { InputComponent } from "src/app/components/form/input/input.component";
+import { SelectComponent } from "src/app/components/form/select/select.component";
 import { OperationLabels } from "src/app/enums/operation.enum";
 import { Category } from "src/app/models/category";
-import { FinUiModule } from "src/app/shared/fin-ui/fin-ui.module";
-import { FinFormsModule } from "../../shared/fin-forms/fin-forms.module";
+import { ButtonComponent } from "../../components/form/button/button.component";
+import { CategoryIconComponent } from "../../components/ui/category-icon/category-icon.component";
+import { PageHeaderComponent } from "../../components/ui/page-header/page-header.component";
 import { CategoryModalComponent } from "./components/bank-account-modal/category-modal.component";
 
 @Component({
     selector: "categories",
-    imports: [CommonModule, MatIconModule, FinFormsModule, FinUiModule, MatMenuModule, ReactiveFormsModule],
+    imports: [CommonModule, MatIconModule, MatMenuModule, ReactiveFormsModule, PageHeaderComponent, ButtonComponent, CategoryIconComponent, SelectComponent, InputComponent],
     templateUrl: "./categories.component.html",
     styleUrl: "./categories.component.scss"
 }) 

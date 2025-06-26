@@ -25,7 +25,8 @@ body {
 }
 
 .checkbox {
-    @apply inline-flex items-center justify-between cursor-pointer w-full h-[35px] mt-2;
+    @apply inline-flex items-center justify-between cursor-pointer w-full h-[35px] mt-2
+        disabled:cursor-not-allowed;
 
     .icon {
         @apply flex gap-2 items-center justify-center;
@@ -37,6 +38,10 @@ body {
         span {
             @apply mt-3 mb-2 text-sm font-medium text-text dark:text-text-dark;
         }
+    }
+
+    &.disabled {
+        @apply cursor-default;
     }
 }
 

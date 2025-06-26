@@ -1,4 +1,3 @@
-
 export enum InstitutionType {
   BANK_ACCOUNT = "BANK_ACCOUNT",
   CREDIT_CARD = "CREDIT_CARD",

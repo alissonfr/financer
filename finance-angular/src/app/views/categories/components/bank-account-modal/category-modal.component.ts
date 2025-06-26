@@ -7,16 +7,18 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { CategoryService } from "@services/api/category.service";
 import { ToastService } from "@services/toast.service";
 import { isFormInvalid } from "@utils/form-validator";
+import { ButtonComponent } from "src/app/components/form/button/button.component";
+import { InputComponent } from "src/app/components/form/input/input.component";
+import { SelectComponent } from "src/app/components/form/select/select.component";
 import { COLORS } from "src/app/constants/colors.constant";
 import { OperationLabels } from "src/app/enums/operation.enum";
 import { Category } from "src/app/models/category";
 import { Icon } from "src/app/models/icon";
-import { FinFormsModule } from "src/app/shared/fin-forms/fin-forms.module";
 
 
 @Component({
     selector: "category-modal",
-    imports: [CommonModule, ReactiveFormsModule, FinFormsModule, MatIconModule, MatTooltipModule],
+    imports: [CommonModule, ReactiveFormsModule, MatIconModule, MatTooltipModule, SelectComponent, ButtonComponent, InputComponent],
     templateUrl: "./category-modal.component.html",
     styleUrl: "./category-modal.component.scss"
 })

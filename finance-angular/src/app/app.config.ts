@@ -6,8 +6,8 @@ import { provideNativeDateAdapter } from "@angular/material/core";
 import { provideAnimations } from "@angular/platform-browser/animations";
 import { provideRouter } from "@angular/router";
 import { JwtModule } from "@auth0/angular-jwt";
-import { authInterceptor } from "@core/interceptors/auth.interceptor";
 import { provideEnvironmentNgxMask } from "ngx-mask";
+import { authInterceptor } from "src/app/interceptors/auth.interceptor";
 import { routes } from "./app.routes";
 
 registerLocaleData(localePt);

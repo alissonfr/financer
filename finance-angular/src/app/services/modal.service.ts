@@ -1,8 +1,8 @@
 import { ComponentType } from "@angular/cdk/portal";
 import { Injectable, inject } from "@angular/core";
 import { MatDialog, MatDialogConfig, MatDialogRef } from "@angular/material/dialog";
-import { FinDeleteModalComponent } from "@core/components/fin-modal/delete-modal/fin-delete-modal.component";
-import { FinDeleteTransactionModalComponent } from "@core/components/fin-modal/delete-transaction-modal/fin-delete-transaction-modal.component";
+import { ConfirmDeleteModalComponent } from "src/app/components/modal/confirm-delete-modal/confirm-delete-modal.component";
+import { DeleteTransactionModalComponent } from "src/app/components/modal/delete-transaction-modal/delete-transaction-modal.component";
 import { BankAccountTransaction } from "../models/bank-account-transaction";
 
 @Injectable({
@@ -16,12 +16,12 @@ export class ModalService {
         return this.dialog.open(component, { minWidth: "40%", ...config });
     }
 
-    confirmDeletion(data: { title: string, message: string }): MatDialogRef<FinDeleteModalComponent> {
-        return this.open(FinDeleteModalComponent, { width: "400px", height: "300px", data: { ...data }, maxWidth: "400px" });
+    confirmDeletion(data: { title: string, message: string }): MatDialogRef<ConfirmDeleteModalComponent> {
+        return this.open(ConfirmDeleteModalComponent, { width: "400px", height: "300px", data: { ...data }, maxWidth: "400px" });
     }
 
-    deleteTransaction(transaction: BankAccountTransaction): MatDialogRef<FinDeleteTransactionModalComponent> {
-        return this.open(FinDeleteTransactionModalComponent, { width: "500px", height: "450px", data: { transaction }, maxWidth: "500px" });
+    deleteTransaction(transaction: BankAccountTransaction): MatDialogRef<DeleteTransactionModalComponent> {
+        return this.open(DeleteTransactionModalComponent, { width: "500px", height: "450px", data: { transaction }, maxWidth: "500px" });
     }
 
     closeAll(): void {

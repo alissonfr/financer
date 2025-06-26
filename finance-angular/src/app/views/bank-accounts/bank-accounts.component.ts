@@ -6,14 +6,15 @@ import { MatMenuModule } from "@angular/material/menu";
 import { BankAccountService } from "@services/api/bank-account.service";
 import { ModalService } from "@services/modal.service";
 import { ToastService } from "@services/toast.service";
+import { InputComponent } from "src/app/components/form/input/input.component";
 import { BankAccount } from "src/app/models/bank-account";
-import { FinUiModule } from "src/app/shared/fin-ui/fin-ui.module";
-import { FinFormsModule } from "../../shared/fin-forms/fin-forms.module";
+import { ButtonComponent } from "../../components/form/button/button.component";
+import { PageHeaderComponent } from "../../components/ui/page-header/page-header.component";
 import { BankAccountModalComponent } from "./components/bank-account-modal/bank-account-modal.component";
 
 @Component({
     selector: "bank-accounts",
-    imports: [CommonModule, MatIconModule, FinFormsModule, FinUiModule, MatMenuModule, ReactiveFormsModule],
+    imports: [CommonModule, MatIconModule, MatMenuModule, ReactiveFormsModule, PageHeaderComponent, ButtonComponent, InputComponent],
     templateUrl: "./bank-accounts.component.html",
     styleUrl: "./bank-accounts.component.scss"
 }) 

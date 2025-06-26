@@ -5,12 +5,13 @@ import { Router, RouterLink } from "@angular/router";
 import { AuthService } from "@services/api/auth.service";
 import { ToastService } from "@services/toast.service";
 import { isFormInvalid } from "@utils/form-validator";
+import { InputComponent } from "src/app/components/form/input/input.component";
 import { LoginRequest } from "src/app/dtos/login-request.dto";
-import { FinFormsModule } from "src/app/shared/fin-forms/fin-forms.module";
+import { ButtonComponent } from "../../../components/form/button/button.component";
 
 @Component({
     selector: "login",
-    imports: [CommonModule, ReactiveFormsModule, FinFormsModule, RouterLink],
+    imports: [CommonModule, ReactiveFormsModule, RouterLink, ButtonComponent, InputComponent],
     templateUrl: "./login.component.html"
 })
 export class LoginComponent {
