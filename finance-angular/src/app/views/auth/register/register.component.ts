@@ -3,7 +3,6 @@ import { Component, inject } from "@angular/core";
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { Router, RouterLink } from "@angular/router";
 import { AuthService } from "@services/api/auth.service";
-import { GlobalLoadingService } from "@services/global-loading.service";
 import { ToastService } from "@services/toast.service";
 import { isFormInvalid } from "@utils/form-validator";
 import { InputComponent } from "src/app/components/form/input/input.component";
@@ -23,7 +22,6 @@ export class RegisterComponent {
         cpf: new FormControl("", [Validators.required]),
     });
 
-    public globalLoadingService = inject(GlobalLoadingService);
     private authService = inject(AuthService);
     private router = inject(Router);
     private toastService = inject(ToastService);

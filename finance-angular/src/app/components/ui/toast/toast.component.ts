@@ -9,7 +9,7 @@ import { ToastService } from "@services/toast.service";
     templateUrl: "./toast.component.html",
     styleUrl: "./toast.component.scss"
 })
-export class FinToastComponent {
+export class ToastComponent {
     readonly toastService = inject(ToastService);
   
     removeToast(id: string): void {

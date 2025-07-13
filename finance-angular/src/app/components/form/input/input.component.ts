@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/no-output-native */
 import { CommonModule } from "@angular/common";
 import { Component, EventEmitter, forwardRef, Input, Output } from "@angular/core";
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
@@ -30,9 +31,7 @@ export class InputComponent implements ControlValueAccessor {
     @Input() datePicker: string;
     @Input() mask: string;
     
-    // eslint-disable-next-line @angular-eslint/no-output-native
     @Output() focus = new EventEmitter<void>();
-    // eslint-disable-next-line @angular-eslint/no-output-native
     @Output() blur = new EventEmitter<void>();
     
     protected disabled: boolean;
@@ -90,11 +89,6 @@ export class InputComponent implements ControlValueAccessor {
     }
 
     onBlur(): void {
-        setTimeout(() => {
-            this.blur.emit();
-            if (this.onTouched) {
-                this.onTouched();
-            }
-        }, 50);
+        this.blur.emit();
     }
 }

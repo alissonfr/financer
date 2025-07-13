@@ -9,13 +9,13 @@
         <div class="absolute w-full h-full transition-all duration-500" [ngClass]="{ 'opacity-100 z-10': $index === currentCardIndex, 'opacity-0 z-0': $index !== currentCardIndex }">
             @if ($index === creditCards.length - 1) {
             <div
-                class="h-full w-full rounded-2xl flex flex-col justify-center items-center p-8 shadow-xl border-2 border-dashed cursor-pointer transition-all border-text dark:border-text-dark hover:border-primary dark:hover:border-primary hover:text-primary hover:brightness-125"
+                class="h-full w-full rounded-2xl flex flex-col justify-center items-center p-8 border-2 border-dashed cursor-pointer transition-all border-text dark:border-text-dark hover:border-primary dark:hover:border-primary hover:text-primary hover:brightness-125"
                 (click)="create()"
             >
                 <mat-icon style="width: 48px; height: 48px; font-size: 48px">add</mat-icon>
             </div>
             } @else {
-            <div class="h-full w-full rounded-2xl flex flex-col justify-between p-8 shadow-xl text-white" [class]="card.issuer?.color || ''">
+            <div class="h-full w-full rounded-2xl flex flex-col justify-between p-8 text-white" [class]="card.issuer?.color || ''">
                 <div class="flex justify-between">
                     <mat-icon>credit_card</mat-icon>
                     <span class="font-semibold">{{ card.name }}</span>
@@ -38,8 +38,8 @@
     <div class="rounded-full w-2.5 h-2.5 border border-text dark:border-text-dark cursor-pointer" (click)="changeCard($index)"></div>
     } }
 </div>
-<div class="rounded-lg shadow-sm">
-    <div class="p-6 border-b border-hover">
+<div class="rounded-lg">
+    <div class="p-6 border-b border-gray-200 dark:border-hover">
         <h2 class="text-xl font-semibold">Transações recentes</h2>
 
         <div class="grid gap-4 mt-4 w-full" style="grid-template-columns: 2fr 1fr">
