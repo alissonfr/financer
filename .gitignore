@@ -1,0 +1,6 @@
+# Root-level ignores (each project keeps its own .gitignore)
+node_modules/
+.DS_Store
+Thumbs.db
+.idea/
+.claude/settings.local.json

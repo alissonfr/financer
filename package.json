@@ -1,0 +1,19 @@
+{
+    "name": "finance",
+    "version": "1.0.0",
+    "private": true,
+    "description": "Monorepo: finance-angular (web) + finance-nestjs (api)",
+    "scripts": {
+        "install:all": "npm install --prefix finance-angular && npm install --prefix finance-nestjs",
+        "dev:web": "npm start --prefix finance-angular",
+        "dev:api": "npm run start:dev --prefix finance-nestjs",
+        "build": "npm run build:web && npm run build:api",
+        "build:web": "npm run build --prefix finance-angular",
+        "build:api": "npm run build --prefix finance-nestjs",
+        "lint:web": "npm run lint --prefix finance-angular",
+        "lint:api": "npm run lint --prefix finance-nestjs",
+        "test:web": "npm test --prefix finance-angular",
+        "test:api": "npm test --prefix finance-nestjs",
+        "db:up": "docker compose -f finance-nestjs/docker-compose.yml up -d"
+    }
+}
